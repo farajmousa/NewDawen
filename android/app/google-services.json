@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "718115490922",
+    "project_id": "mtsg-dcab2",
+    "storage_bucket": "mtsg-dcab2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718115490922:android:39929db066fc66f3960e13",
+        "android_client_info": {
+          "package_name": "com.app.mtsg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718115490922-skpa23mpin6rqrcv1v84mpocvd0u8kqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUScvDKq6U7BJfwgphVpcUtUA_flTeL5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718115490922-skpa23mpin6rqrcv1v84mpocvd0u8kqb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
