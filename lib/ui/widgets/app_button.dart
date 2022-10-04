@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 import 'package:sky_vacation/helper/localize.dart';
 import '../../helper/app_color.dart';
 
+import '../../helper/app_util.dart';
 import '../../main.dart';
 
 class AppButton extends StatelessWidget {
@@ -98,6 +99,7 @@ class AppButton extends StatelessWidget {
             child: InkWell(
                 splashColor: Colors.grey,
                 onTap: () {
+                  au.hideKeyboard();
                   if (null != this.onTap) this.onTap!();
                 },
                 child: Container(
@@ -184,7 +186,7 @@ class AppButton extends StatelessWidget {
 Widget dateWidget(BuildContext context,  DateTime? selectedDate, Function(DateTime?) dateChanged, {String? title,}) {
   return InkWell(
     child: Container(
-      decoration: AppDecor.decoration(borderColor: AppColor.grayMed),
+      decoration: AppDecor.decoration(),
       padding: EdgeInsets.symmetric(vertical: Dim.h1_5, horizontal: Dim.w4),
       margin: EdgeInsets.symmetric(vertical: Dim.h_5, ),
       child: Row(
@@ -199,7 +201,7 @@ Widget dateWidget(BuildContext context,  DateTime? selectedDate, Function(DateTi
           ),
           Icon(
             Icons.date_range,
-            color: AppColor.primaryColor,
+            color: AppColor.primary,
           ),
         ],
       ),
@@ -214,20 +216,19 @@ Widget dateWidget(BuildContext context,  DateTime? selectedDate, Function(DateTi
           builder: (context, widget) {
             return Theme(
               data: ThemeData(
-                  focusColor: AppColor.calenderSelectedColor,
+                  focusColor: AppColor.accentDark,
                   brightness: Brightness.light,
-                  backgroundColor: AppColor.whiteColor,
-                  buttonColor: AppColor.primaryColor,
+                  backgroundColor: AppColor.white,
+                  buttonColor: AppColor.primary,
                   unselectedWidgetColor:
-                  AppColor.calenderTodayColor,
-                  dialogBackgroundColor: AppColor.whiteColor,
-                  secondaryHeaderColor: AppColor.primaryColor),
+                  AppColor.green,
+                  dialogBackgroundColor: AppColor.white,
+                  secondaryHeaderColor: AppColor.primary),
               child: widget!,
             );
           },
           textDirection: TextDirection.rtl)
           .then((data) {
-        print(data);
         dateChanged(data);
       }).catchError((error) {
       });
@@ -252,7 +253,7 @@ Widget timeWidget(BuildContext context,  TimeOfDay? selectedDate, Function(TimeO
           ),
           Icon(
             Icons.date_range,
-            color: AppColor.primaryColor,
+            color: AppColor.primary,
           ),
         ],
       ),
@@ -265,19 +266,18 @@ Widget timeWidget(BuildContext context,  TimeOfDay? selectedDate, Function(TimeO
           builder: (context, widget) {
             return Theme(
               data: ThemeData(
-                  focusColor: AppColor.calenderSelectedColor,
+                  focusColor: AppColor.accentDark,
                   brightness: Brightness.light,
-                  backgroundColor: AppColor.whiteColor,
-                  buttonColor: AppColor.primaryColor,
+                  backgroundColor: AppColor.white,
+                  buttonColor: AppColor.primary,
                   unselectedWidgetColor:
-                  AppColor.calenderTodayColor,
-                  dialogBackgroundColor: AppColor.whiteColor,
-                  secondaryHeaderColor: AppColor.primaryColor),
+                  AppColor.green,
+                  dialogBackgroundColor: AppColor.white,
+                  secondaryHeaderColor: AppColor.primary),
               child: widget!,
             );
           },)
           .then((data) {
-        print(data);
         dateChanged(data);
       }).catchError((error) {
       });

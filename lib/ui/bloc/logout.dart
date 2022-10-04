@@ -6,33 +6,46 @@ import 'package:sky_vacation/data/api/api_repo.dart';
 import 'package:sky_vacation/data/api/api_urls.dart';
 import 'package:sky_vacation/helper/app_util.dart';
 
+import '../../main.dart';
+
 class LogoutBloc extends BaseBloc<Result<bool>> {
   ApiRepo repository;
 
   LogoutBloc(this.repository);
 
-  // Future<void> logout() async {
-  //   emit(Result.loading());
-  //   try {
-  //     var result =
-  //     await repository.call(ApiMethod.get, Urls.logout, );
-  //     emit(Result.success(true));
-  //   }  on ForbiddenException {
-  //     emit(Result.forbidden());
-  //   } on NotFoundException {
-  //     emit(Result.error('codeNotFound'));
-  //   } on BaseException catch (errorBody) {
-  //     if (errorBody.message.isNotEmpty) {
-  //       emit(Result.error(errorBody.message));
-  //     } else {
-  //       emit(Result.error('codeBadRequest'));
-  //     }
-  //   } on Exception catch (e) {
-  //     emit(Result.error('codeBadRequest'));
-  //   } catch(e){
-  //     appLog("Error LogoutBloc: ${e.toString()}");
-  //     emit(Result.error('codeBadRequest'));
-  //   }
-  // }
+  Future<void> logout(
+      String? logoutPassword,
+      ) async {
+    emit(Result.loading());
+    try {
+      String url = "${Urls.userLogout}/${sm.getUser()?.usId}/$logoutPassword";
 
+      appLog("login URL : $url");
+      var result = await repository.call(
+        ApiMethod.get,
+        url,
+        addLang: true
+      );
+      appLog("logout result: $result");
+      emit(Result.success(true));
+
+    } on ForbiddenException {
+      emit(Result.forbidden());
+    } on NotFoundException {
+      emit(Result.error('wrong_user_data'));
+    } on BaseException catch (errorBody) {
+      if (errorBody.message.isNotEmpty) {
+        emit(Result.error(errorBody.message));
+      } else {
+        emit(Result.error('codeBadRequest'));
+      }
+    } on Exception catch (e) {
+      emit(Result.error('codeBadRequest'));
+    } catch (e) {
+      appLog("Error LoginBloc: ${e.toString()}");
+      emit(Result.error('codeBadRequest'));
+    }
+  }
 }
+
+

@@ -28,13 +28,25 @@ class SendFcmTokenBloc extends BaseBloc<Result<bool>> {
           "${Urls.sendFcmToken}/${sm.getUser()?.usId ?? 0}",
           addLang: false,
           body: {
-            "userToken": "$fcm",
+            "userToken": fcm,
             "deviceType": "0", //"${(Platform.isAndroid)?'android': 'ios'}",
             "language": "${(currentLocale == AppLocale.AR) ? 0 : 1}",
             "empId": "${sm.getUser()?.usId ?? 0}",
           });
-
       appLog("sendFcmToken result: $result");
+
+      // var result2 = await repository.call(
+      //     ApiMethod.post,
+      //     Urls.sendNotification,
+      //     addLang: false,
+      //     body: {
+      //       "DeviceId": fcm,
+      //       "IsAndroiodDevice": true,
+      //       "Title": "my own title",
+      //       "Body": "my own Body",
+      //     },);
+
+      // appLog("sendNotification result: $result2");
 
     } on ForbiddenException {
       emit(Result.forbidden());

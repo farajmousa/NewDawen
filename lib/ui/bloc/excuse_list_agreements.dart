@@ -5,8 +5,6 @@ import 'package:sky_vacation/base/result.dart';
 import 'package:sky_vacation/data/api/api_method.dart';
 import 'package:sky_vacation/data/api/api_repo.dart';
 import 'package:sky_vacation/data/api/api_urls.dart';
-import 'package:sky_vacation/data/model/entity/excuse_data.dart';
-import 'package:sky_vacation/data/model/entity/holiday_agreement_data.dart';
 import 'package:sky_vacation/helper/app_util.dart';
 import '../../data/model/entity/excuse_agreement_data.dart';
 import '../../main.dart';
@@ -25,7 +23,7 @@ class ExcuseListAgreementBloc extends BaseBloc<Result<List<ExcuseAgreementData>>
         addLang: false
       );
 
-      print("#result: $result");
+      appLog("#result: $result");
         List<ExcuseAgreementData> dataList = (jsonDecode(result) as List)
             .map((itemWord) => ExcuseAgreementData.fromJson(itemWord))
             .toList();

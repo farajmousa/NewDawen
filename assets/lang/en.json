@@ -70,9 +70,9 @@
   "addDone": "Add Order done successfully",
   "checkinDone": "Attendance done successfully",
   "checkoutDone": "Checkout Done Successfully",
-  "selectLocation": "Choose the site where you want the fingerprint",
+  "selectLocation": "Choose the site where you want to\nregister the fingerprint",
   "insertFaceRecogn": "Enter a face print",
-  "selectLocationFirst": "Select Locationً",
+  "selectLocationFirst": "Select Location",
   "register": "Attendance",
   "confirmRegister": "Confirmation Attendance in work location",
   "randomRecogn": "Footprint from outside work",
@@ -191,14 +191,19 @@
   "save": "Save",
   "confirm_msg": "Confirmation Message",
 
-
+  "codeNotValid": "May be this request is not valid now. Please try again later ",
   "codeNotFound": "There are no results to display",
   "codeBadGateway": "Make sure all mandatory fields are entered",
   "codeUnauthorized": "You do not have a permit or the data has already been saved",
   "codeBadRequest": "An error occurred, please try again, if the same error exists, contact technical support",
   "wrong_user_data": "Wrong user data",
-  "homeProfile": "profile",
+  "homeProfile": "Profile",
   "logOutInfo": "please enter the logout password to logout",
   "logOutWarning": "please enter password to logout",
-  "loginsuccess": "login successfull"
+  "loginsuccess": "Login Success",
+  "hi": "Hi, ",
+  "incorrect_data": "May be data is incorrect or something wrong happened. Please try again with valid data",
+  "retry": "Retry",
+  "app_version": "Application version",
+  "app_language": "Application Language"
 }

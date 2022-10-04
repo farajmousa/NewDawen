@@ -11,7 +11,7 @@ import 'package:sky_vacation/data/api/api_urls.dart';
 import '../../main.dart';
 import 'package:sky_vacation/helper/app_util.dart';
 
-class CheckInOutBloc extends BaseBloc<Result<bool>> {
+class CheckInOutBloc extends BaseBloc<Result<int>> {
   ApiRepo repository;
 
   CheckInOutBloc(this.repository);
@@ -22,7 +22,7 @@ class CheckInOutBloc extends BaseBloc<Result<bool>> {
 
     
   Future<void> create(
-    int inoutmode,
+    int inOutMode,
     int? locationId,
   ) async {
     emit(Result.loading());
@@ -30,24 +30,22 @@ class CheckInOutBloc extends BaseBloc<Result<bool>> {
       int userId = sm.getUser()?.usId ?? 0;
       String? deviceId = await PlatformDeviceId.getDeviceId;
 Position position = await _determinePosition();
-                  print(position.latitude);
-                  print(position.longitude);
-                  print(position.accuracy);
+
 
       var result =
           await repository.call(ApiMethod.post, Urls.checkInOut, body: {
         "empid": "$userId",
-        "inoutmode": "$inoutmode",
+        "inoutmode": "$inOutMode",
         "shiftid": "${sm.getUser()?.shiftId ?? 0}",
         "locationId": "${locationId ?? 0}",
         "mobSer": "$deviceId",
         "gdatetime": "${au.formatDateTimeZone(DateTime.now())}",
         "chektime": "${au.formatTime(TimeOfDay.now())}",
         "Latitude": position.latitude,
-        "Longitude":position.longitude,
+        "Longitude": position.longitude,
         "accuracy": position.accuracy
       }, addLang: false);
-      emit(Result.success(true));
+      emit(Result.success(inOutMode));
     } on ForbiddenException {
       emit(Result.forbidden());
     } on NotFoundException {

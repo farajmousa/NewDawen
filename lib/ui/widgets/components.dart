@@ -12,39 +12,44 @@ import 'package:sky_vacation/helper/dim.dart';
 import 'package:sky_vacation/helper/font_style.dart';
 import 'package:sky_vacation/helper/localize.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sky_vacation/ui/widgets/app_image.dart';
 
+import '../../main.dart';
 import 'app_button.dart';
 import 'app_svg.dart';
 
 class Components {
-  void handleApiError(BuildContext context, {String? error}) {
+  void handleApiError(BuildContext context, {String? error, String? img}) {
     try {
       if (null != error && error.isNotEmpty) {
         if (error == 'no_internet_connection') {
           displayDialogImage(
               context,
               Trans.of(context).t("no_internet_connection"),
-              AppAsset.no_internet);
-        } else {
-          // displayDialog(
-          //     context,
-          //     (error == "codeBadRequest")
-          //         ? Trans.of(context).t("codeBadRequest")
-          //         : error);
-
-          // showToastedd((error == "codeBadRequest")
-          //     ? Trans.of(context).t("codeBadRequest")
-          //     : error);
-
-          showCustomToast(context , (error == "codeBadRequest")
+              AppAsset.no_internet, showBtn: true);
+        }
+        else if(error == 'incorrect_data'){
+          displayDialogImage(context , Trans.of(context).t('incorrect_data'),
+              img, );
+        }
+      else if(error == 'un_authorized'){
+        sm.deleteCompany();
+        Phoenix.rebirth(context);
+      }
+      else if(error == 'codeNotValid'){
+          displayDialogImage(context , Trans.of(context).t('codeNotValid'),
+            AppAsset.failed, );
+      }
+        else {
+          displayDialogImage(context , (error == "codeBadRequest")
               ? Trans.of(context).t("codeBadRequest")
-              : error);
+              : error, img,);
         }
       } else {
-        displayDialog(context, Trans.of(context).t("codeBadRequest"));
+        displayDialogImage(context, Trans.of(context).t("codeBadRequest"), img, );
       }
     } catch (e) {
-      displayDialog(context, Trans.of(context).t("codeBadRequest"));
+      displayDialogImage(context, Trans.of(context).t("codeBadRequest"), img,);
     }
   }
 
@@ -60,7 +65,7 @@ class Components {
               StateSetter setState /*You can rename this!*/) {
             return Container(
               // height: Dim.h80,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   // color: Colors.green,
                   borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
@@ -81,7 +86,7 @@ class Components {
                           width: Dim.w10,
                           height: Dim.w10,
                           child: Icon(
-                            Icons.close,
+                            Icons.cancel,
                             color: AppColor.red,
                             size: Dim.w6,
                           ),
@@ -93,7 +98,7 @@ class Components {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: Dim.h1),
+                    padding: EdgeInsets.symmetric(vertical: Dim.h3),
                     child: Text(
                       msg ?? "",
                       textAlign: TextAlign.center,
@@ -110,7 +115,7 @@ class Components {
         }).whenComplete(() {});
   }
 
-  void displayDialogImage(BuildContext context, String msg, String imagePath) {
+  void displayDialogImage(BuildContext context, String msg, String? imagePath, {bool? showBtn = false, Color? imgColor}) {
     showModalBottomSheet(
         context: context,
         shape: AppDecor.sheetShape,
@@ -147,18 +152,17 @@ class Components {
                       ),
                     ],
                   ),
-                  Center(
+                 if(null != imagePath) Center(
                     child: Image.asset(
                       imagePath,
                       width: Dim.w50,
                       height: Dim.w40,
+                      color: imgColor,
                     ),
                   ),
-                  SizedBox(
-                    height: Dim.h2,
-                  ),
+
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: Dim.h1),
+                    padding: EdgeInsets.only(bottom: (showBtn ?? true)? Dim.h2: Dim.h6, top: Dim.h3),
                     child: Text(
                       msg,
                       textAlign: TextAlign.center,
@@ -168,7 +172,8 @@ class Components {
                           weight: FontWeight.w600),
                     ),
                   ),
-                  AppButton(
+
+                  if(showBtn ?? true)AppButton(
                     title: Trans.of(context).t("retry"),
                     marginVertical: Dim.h2,
                     onTap: () {
@@ -182,86 +187,6 @@ class Components {
         }).whenComplete(() {});
   }
 
-  void displayDialogSuccess(
-      BuildContext context, String? msg, String? msg2, String imgPath) {
-    showDialog<bool>(
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(builder: (cont, setState) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0)), //this right here
-            child: Container(
-              height: Dim.h50 + Dim.h2,
-              padding:
-                  EdgeInsets.symmetric(horizontal: Dim.h3, vertical: Dim.h3),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        child: Icon(
-                          Icons.cancel,
-                          color: AppColor.red,
-                          size: Dim.w6,
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: Dim.h2,
-                  ),
-                  AppSVG(
-                    name: imgPath,
-                    width: Dim.h15,
-                    height: Dim.h15,
-                  ),
-                  SizedBox(
-                    height: Dim.h1,
-                  ),
-                  Text(
-                    msg ?? "",
-                    textAlign: TextAlign.center,
-                    style: TS.boldBlack16,
-                  ),
-                  SizedBox(
-                    height: Dim.h1,
-                  ),
-                  Text(
-                    msg2 ?? "",
-                    textAlign: TextAlign.center,
-                    style: TS.medGrayDark10,
-                  ),
-                  SizedBox(
-                    height: Dim.h3,
-                  ),
-                  Center(
-                    child: AppButton(
-                      width: Dim.w35,
-                      height: Dim.h5,
-                      radius: Dim.w1,
-                      bkgColor: AppColor.primaryBkg,
-                      title: Trans.of(context).t("ok"),
-                      titleColor: AppColor.primary,
-                      marginVertical: 0,
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-      },
-    );
-  }
 
   displayToast(BuildContext context, String message,
       {double? size, int? duration, Color? bkgColor, Positioned? positioned}) {
@@ -291,32 +216,27 @@ class Components {
       preferredSize: Size.fromHeight(Dim.h8),
       // here the desired height
       child: AppBar(
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.transparent,
           centerTitle: true,
           elevation: 0,
           leading: (showBack ?? true)
               ? IconButton(
                   padding: EdgeInsets.all(Dim.w3),
-                  icon: Icon(Icons.arrow_back_ios_rounded),
-                  iconSize: Dim.w5,
+                  icon: const Icon(Icons.arrow_back_ios_rounded, color: AppColor.white,),
+                  iconSize: Dim.w6,
                   onPressed: backTapped,
                 )
               : Center(),
-          actions: [
-            // Builder(
-            //   builder: (context) => Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //
-            //   ],)
-            // ),
-          ],
-          title: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TS.boldPrimary11,
-          )
-          // Text("title", textAlign: TextAlign.ce,
+          title: Container(
+            margin: EdgeInsets.symmetric(vertical: Dim.h4),
+            padding: EdgeInsets.symmetric(vertical: Dim.h4),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TS.medWhite12,
+            ),
+          ),
+
           ),
     );
   }

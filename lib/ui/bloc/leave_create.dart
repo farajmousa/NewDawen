@@ -37,7 +37,7 @@ class LeaveCreateBloc extends BaseBloc<Result<bool>> {
           });
       appLog("login result: $result");
       Map<String, dynamic> map = jsonDecode(result);
-      print("map['success']: ${map['success']}");
+      appLog("map['success']: ${map['success']}");
       if (map.containsKey("result") &&
           map["result"] != null &&
           map['success'].toString() == "true") {

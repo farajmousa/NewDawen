@@ -109,39 +109,39 @@ Future<void> _displayLocalNotification(String title, String body) async {
       ?.createNotificationChannel(androidNotificationChannel);
 }
 
-tryingNotification() async {
-    String fcm = sm.getValue(UserConstant.FCM_TOKEN);
-
-    var result = await put(
-        Uri.parse("${Urls.baseUrl}${Urls.sendFcmToken}/${sm.getUser()?.usId ?? 0}"),
-        body: {
-          "userToken": "$fcm",
-          "deviceType": "0", //"${(Platform.isAndroid)?'android': 'ios'}",
-          "language": "${(currentLocale == AppLocale.AR) ? 0 : 1}",
-          "empId": "${sm.getUser()?.usId ?? 0}",
-        });
-
-
-
-
-  Uri uri = Uri.parse("${Urls.baseUrl}${Urls.sendNotification}");
-  String token = sm.getValue(UserConstant.FCM_TOKEN);
-  Map body = {
-    "DeviceId": token,
-    "IsAndroiodDevice": true,
-    "Title": "my own title",
-    "Body": "my own Body",
-  };
-  Response response = await post(uri,
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: jsonEncode(body));
-
-  print("==============================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-  print("${Urls.baseUrl}${Urls.sendNotification}");
-  print(response.statusCode);
-  print(response.body);
-}
+// tryingNotification() async {
+//     String fcm = sm.getValue(UserConstant.FCM_TOKEN);
+//
+//     var result = await put(
+//         Uri.parse("${Urls.baseUrl}${Urls.sendFcmToken}/${sm.getUser()?.usId ?? 0}"),
+//         body: {
+//           "userToken": "$fcm",
+//           "deviceType": "0", //"${(Platform.isAndroid)?'android': 'ios'}",
+//           "language": "${(currentLocale == AppLocale.AR) ? 0 : 1}",
+//           "empId": "${sm.getUser()?.usId ?? 0}",
+//         });
+//
+//
+//
+//
+//   Uri uri = Uri.parse("${Urls.baseUrl}${Urls.sendNotification}");
+//   String token = sm.getValue(UserConstant.FCM_TOKEN);
+//   Map body = {
+//     "DeviceId": token,
+//     "IsAndroiodDevice": true,
+//     "Title": "my own title",
+//     "Body": "my own Body",
+//   };
+//   Response response = await post(uri,
+//       headers: {
+//         'Content-type': 'application/json',
+//       },
+//       body: jsonEncode(body));
+//
+//   print("==============================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//   print("${Urls.baseUrl}${Urls.sendNotification}");
+//   print(response.statusCode);
+//   print(response.body);
+// }
 
 

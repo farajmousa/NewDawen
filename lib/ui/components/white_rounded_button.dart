@@ -25,15 +25,15 @@ class WhiteRoundedButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
           side: BorderSide(
-            color: AppColor.whiteColor,
+            color: AppColor.white,
             style: BorderStyle.solid,
             width: 3.0
           )
         ),
-        color: AppColor.whiteColor,
-        textColor: AppColor.accentColor,
-        disabledColor: AppColor.whiteDisabledColor,
-        disabledTextColor: AppColor.accentDisabledColor,
+        color: AppColor.white,
+        textColor: AppColor.accentDark,
+        disabledColor: AppColor.gray,
+        disabledTextColor: AppColor.text,
         padding: EdgeInsets.all(8.0),
 
         minWidth: double.infinity,
@@ -42,11 +42,11 @@ class WhiteRoundedButton extends StatelessWidget {
           children: <Widget>[
             Align(
               alignment: Alignment.centerLeft,
-              child: (loading  ?? false) ? Loading(loading: loading!,loadingColor: AppColor.primaryColor,loadingAlignment: Alignment.centerLeft,):Padding(
+              child: (loading  ?? false) ? Loading(loading: loading!,loadingColor: AppColor.primary,loadingAlignment: Alignment.centerLeft,):Padding(
                 padding: const EdgeInsets.only(left: 2.0),
                 child: Icon(
                   icon,
-                  color: AppColor.primaryColor,
+                  color: AppColor.primary,
                 ),
               ),
             ),

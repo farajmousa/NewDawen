@@ -3,19 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:need_resume/need_resume.dart';
 import 'package:sky_vacation/data/model/entity/location_data.dart';
+import 'package:sky_vacation/helper/app_asset.dart';
 import 'package:sky_vacation/helper/dim.dart';
 import 'package:sky_vacation/helper/font_style.dart';
 import 'package:sky_vacation/main.dart';
 import 'package:sky_vacation/data/model/entity/user.dart';
 import 'package:sky_vacation/ui/bloc/check_in_out.dart';
+import 'package:sky_vacation/ui/widgets/separator.dart';
 import '../../helper/app_color.dart';
 import 'package:sky_vacation/helper/localize.dart';
 import 'package:sky_vacation/ui/widgets/app_drop_down.dart';
 import '../../base/result.dart';
 import '../../di/injection_container.dart';
 import '../../helper/app_constant.dart';
+import '../../helper/app_decoration.dart';
+import '../../helper/app_util.dart';
 import '../bloc/user_locations_list.dart';
-import '../components/image_picker.dart';
 import '../components/rounded_button.dart';
 import '../widgets/loading_indicator.dart';
 
@@ -58,7 +61,7 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
     _checkInOutBloc.mainStream.listen(_observeCheckInOut);
     _userLocationsListBloc.get();
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       user = sm.getUser();
     });
 
@@ -85,120 +88,134 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
           comp.appBar(Trans.of(context).t("checkin_checkout"), backTapped: () {
         Navigator.of(context).pop();
       }),
-      backgroundColor: AppColor.white,
+      backgroundColor: AppColor.bkgGray,
       body: SafeArea(
-        child: Stack(
-          children: [
-            ListView(
-              padding: EdgeInsets.symmetric(horizontal: Dim.w4),
-              children: <Widget>[
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  Trans.of(context).t("selectLocation"),
-                  style: TS.boldBlack10,
-                ),
-                locationsDropDown(),
-                // (null != user && (user?.imageRequired ?? false))
-                //     ? Padding(
-                //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       Text(Trans.of(context).t("insertFaceRecogn"),
-                //           textAlign: TextAlign.right, style: TS.medPrimary10),
-                //       MyImagePicker(
-                //         size: 120,
-                //         imageFile: imageFile,
-                //         onImagePicked: (String value) {
-                //           print("$value");
-                //           setState(() {
-                //             imageFile = File(value);
-                //           });
-                //         },
-                //       ),
-                //     ],
-                //   ),
-                // )
-                //     : Center(),
-                SizedBox(
-                  height: Dim.h5,
-                ),
-                RoundedButton(
-                  icon: Icons.check,
-                  verticalMargin: Dim.h1,
-                  fontSize: Dim.s10,
-                  onPressed: () {
-                    print("Camera file: $imageFile");
+        child:  Container(
+          margin: EdgeInsets.fromLTRB(Dim.w5, Dim.h3, Dim.w5, Dim.h4),
+          padding: EdgeInsets.fromLTRB(Dim.w6, Dim.w4, Dim.w6, Dim.w4),
+          decoration: AppDecor.decoration(bkgColor: AppColor.bkg, borderRadius: Dim.w5),
+          child:
+          ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              SizedBox(
+                height: Dim.h2,
+              ),
+              Text(
+                Trans.of(context).t("selectLocation"),
+                style: TS.medPrimary12,
+              ),
+              SizedBox(
+                height: Dim.h1_5,
+              ),
+              locationsDropDown(),
+              // (null != user && (user?.imageRequired ?? false))
+              //     ? Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       Text(Trans.of(context).t("insertFaceRecogn"),
+              //           textAlign: TextAlign.right, style: TS.medPrimary10),
+              //       MyImagePicker(
+              //         size: 120,
+              //         imageFile: imageFile,
+              //         onImagePicked: (String value) {
+              //           appLog("$value");
+              //           setState(() {
+              //             imageFile = File(value);
+              //           });
+              //         },
+              //       ),
+              //     ],
+              //   ),
+              // )
+              //     : Center(),
+              SizedBox(
+                height: Dim.h5,
+              ),
+              RoundedButton(
+                icon: Icons.check,
+                verticalMargin: Dim.h1,
+                fontSize: Dim.s10,
+                onPressed: () {
+                  appLog("Camera file: $imageFile");
+                  if(!isLoading) {
                     if (selectedLocationIndex > -2) {
                       if (user?.imageRequired ?? false) {
                         if (null != user && null != imageFile) {
                           callCheckInOutApi(CheckInOut.checkIn);
                         } else {
-                          comp.displayToast(
-                              context, Trans.of(context).t("insertImageFace"));
+                          comp.displayDialog(
+                              context,
+                              Trans.of(context).t("insertImageFace"));
                         }
                       } else {
-                        callCheckInOutApi(1);
+                        callCheckInOutApi(CheckInOut.checkIn);
                       }
                     } else {
-                      comp.displayToast(
-                          context, Trans.of(context).t("selectLocationFirst"));
-                   //   showCustomToast("llllllllllllllllll");
+                      comp.displayDialog(
+                          context,
+                          Trans.of(context).t("selectLocationFirst"));
+                      //   showCustomToast("llllllllllllllllll");
                     }
-                  },
-                  disabled: checkInDisabled ?? false,
-                  text: Trans.of(context).t("check_in"),
-                  loading: checkInLoading ?? false,
-                  backgroundColor: AppColor.primary,
-                ),
-                SizedBox(
-                  height: Dim.h5,
-                ),
-                RoundedButton(
-                  icon: Icons.check,
-                  verticalMargin: Dim.h1,
-                  fontSize: Dim.s10,
-                  onPressed: () {
-                    print("Camera file: $imageFile");
+                  }
+                },
+                disabled: checkInDisabled ?? false,
+                text: Trans.of(context).t("check_in"),
+                loading: checkInLoading ?? false,
+                backgroundColor: AppColor.green,
+              ),
+              SizedBox(
+                height: Dim.h1,
+              ),
+              RoundedButton(
+                icon: Icons.history,
+                verticalMargin: Dim.h1,
+                fontSize: Dim.s10,
+                onPressed: () {
+                  appLog("Camera file: $imageFile");
+                  if(!isLoading) {
                     if (selectedLocationIndex > -2) {
                       if (user?.imageRequired ?? false) {
                         if (null != user && null != imageFile) {
                           callCheckInOutApi(CheckInOut.recheck);
                         } else {
-                          comp.displayToast(
-                              context, Trans.of(context).t("insertImageFace"));
+                          comp.displayDialog(
+                              context,
+                              Trans.of(context).t("insertImageFace"));
                         }
                       } else {
                         callCheckInOutApi(CheckInOut.recheck);
                       }
                     } else {
-                      comp.displayToast(
-                          context, Trans.of(context).t("selectLocationFirst"));
+                      comp.displayDialog(
+                          context,
+                          Trans.of(context).t("selectLocationFirst"));
                     }
-                  },
-                  disabled: checkInDisabled ?? false,
-                  text: Trans.of(context).t("recheck"),
-                  loading: checkInLoading ?? false,
-                  backgroundColor: AppColor.primary,
-                ),
+                  }
+                },
+                disabled: checkInDisabled ?? false,
+                text: Trans.of(context).t("recheck"),
+                loading: checkInLoading ?? false,
+                backgroundColor: AppColor.accent,
+              ),
 
-                SizedBox(
-                  height: Dim.h4,
-                ),
-                RoundedButton(
-                  icon: Icons.close,
-                  verticalMargin: Dim.h1,
-                  fontSize: Dim.s10,
-                  onPressed: () {
+              SeparatorDashed(verticalMargin: Dim.h3, ),
+              RoundedButton(
+                icon: Icons.close,
+                verticalMargin: Dim.h1,
+                fontSize: Dim.s10,
+                onPressed: () {
+                  if(!isLoading) {
                     if (selectedLocationIndex > -2) {
                       if (user?.imageRequired ?? false) {
                         if (null != user && null != imageFile) {
                           callCheckInOutApi(CheckInOut.checkOut);
                         } else {
-                          comp.displayToast(
-                              context, Trans.of(context).t("insertImageFace"));
+                          comp.displayDialog(
+                              context,
+                              Trans.of(context).t("insertImageFace"));
                           // showToasted("hhhh");
 
                         }
@@ -208,20 +225,21 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
 
                       }
                     } else {
-                      comp.displayToast(
-                          context, Trans.of(context).t("selectLocationFirst"));
+                      comp.displayDialog(
+                          context,
+                          Trans.of(context).t("selectLocationFirst"));
                     }
-                  },
-                  disabled: checkOutDisabled ?? false,
-                  text: Trans.of(context).t("check_out"),
-                  loading: checkOutLoading ?? false,
-                  backgroundColor: AppColor.red,
-                ),
-              ],
-            ),
-            if (isLoading) LoadingIndicator(),
-          ],
-        ),
+                  }
+                },
+                disabled: checkOutDisabled ?? false,
+                text: Trans.of(context).t("check_out"),
+                loading: checkOutLoading ?? false,
+                backgroundColor: AppColor.red,
+              ),
+              if (isLoading) LoadingIndicator(),
+
+            ],
+          ),),
       ),
     );
   }
@@ -236,62 +254,23 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
   }
 
   Widget locationsDropDown() {
-    return ListView(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-      children: [
-        // InkWell(
-        //   onTap: () {
-        //     setState(() {
-        //       selectedLocationIndex = -1;
-        //     });
-        //   },
-        //   child: Container(
-        //       height: 50,
-        //       alignment: Alignment.center,
-        //       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-        //       decoration: BoxDecoration(
-        //           color: (selectedLocationIndex == -1)
-        //               ? Colors.lightGreen.shade100
-        //               : Colors.white,
-        //           border: Border.all(color: AppColor.primaryColor),
-        //           borderRadius: BorderRadius.circular(10)),
-        //       child: Text(Trans.of(context).t("randomRecogn"),
-        //           textAlign: TextAlign.center, style: TS.medPrimary10)),
-        // ),
-        // SizedBox(
-        //   height: 10,
-        // ),
-        // Text(Trans.of(context).t("or"),
-        //     textAlign: TextAlign.center,
-        //     style: TS.homeTextAppBar.copyWith(
-        //         fontSize: Dim.fontSize14,
-        //         color: AppColor.primaryColor,
-        //         fontWeight: FontWeight.w800)),
-        // SizedBox(
-        //   height: 10,
-        // ),
-        AppDropDown(
-          hint: 'districtedRecogn',
-          items: locationList,
-          selectedItem: (selectedLocationIndex >= 0)
-              ? locationList[selectedLocationIndex]
-              : null,
-          onItemChanged: (dynamic? newValue) {
-            setState(() {
-              var index = locationList.indexOf(newValue as LocationData);
-              selectedLocationIndex = index;
-            });
-          },
-          onDeleteTapped: () {
-            setState(() {
-              selectedLocationIndex = -2;
-            });
-          },
-        ),
-      ],
-      // ),
+    return  AppDropDown(
+      hint: 'districtedRecogn',
+      items: locationList,
+      selectedItem: (selectedLocationIndex >= 0)
+          ? locationList[selectedLocationIndex]
+          : null,
+      onItemChanged: (dynamic? newValue) {
+        setState(() {
+          var index = locationList.indexOf(newValue as LocationData);
+          selectedLocationIndex = index;
+        });
+      },
+      onDeleteTapped: () {
+        setState(() {
+          selectedLocationIndex = -2;
+        });
+      },
     );
   }
 
@@ -302,7 +281,7 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       locationList = result.getSuccessData() ?? [];
-      print("holidayList: $locationList");
+      appLog("holidayList: $locationList");
       refresh();
     } else if (result is ErrorResult) {
       comp.handleApiError(context, error: result.getErrorMessage());
@@ -311,14 +290,17 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
     }
   }
 
-  void _observeCheckInOut(Result<bool> result) {
+  void _observeCheckInOut(Result<int> result) {
     loading(false);
     if (result is SuccessResult) {
-      comp.displayToast(context, Trans.of(context).t("done_success"));
+      int operationMode = result.getSuccessData() ?? -1;
+      comp.displayDialogImage(context, Trans.of(context).t("done_success"),AppAsset.success,
+      imgColor: (operationMode == CheckInOut.checkIn)? AppColor.green:
+      (operationMode == CheckInOut.checkOut)? AppColor.red: AppColor.primary);
 
-      Navigator.pop(context);
+      // Navigator.pop(context);
     } else if (result is ErrorResult) {
-      comp.handleApiError(context, error: result.getErrorMessage());
+      comp.handleApiError(context, error: result.getErrorMessage(), img: AppAsset.failed);
     } else if (result is LoadingResult) {
       loading(true);
     }

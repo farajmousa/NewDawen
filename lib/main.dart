@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +27,19 @@ final Const constant = sl<Const>();
 BuildContext? appContext ;
 FirebaseMessaging? firebaseMessaging;
 String currentLocale = AppLocale.AR;
+String? appVersion;
+List<Color> colorsRandom = [
 
+  AppColor.purple,
+  AppColor.green,
+  AppColor.red,
+  AppColor.blue,
+  AppColor.accentDark,
+  AppColor.greenBlue,
+  // AppColor.redTomato,
+  // AppColor.greenDark,
+
+];
 //-----------------
 final getIt = GetIt.instance;
 
@@ -34,7 +48,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await di.init();
-
+  appVersion = await au.getVersionName();
   await initFirebase();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -53,33 +67,37 @@ class MyApp extends StatefulWidget {
 
 class _SplashScreenState extends State<MyApp> {
 
-  final appLocales = [
-    Locale(AppLocale.AR),
-    Locale(AppLocale.EN),
-  ];
 
   @override
   void initState() {
     initLocaleNotification();
-    tryingNotification();
+    // if(sm.isUserLogged())tryingNotification();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     appContext = context;
+    Locale deviceLocale = window.locale;// or html.window.locale
+    String deviceCode = deviceLocale.languageCode;
+
     FlutterStatusbarcolor.setStatusBarColor(AppColor.primary);
     currentLocale = (sm.getValue(UserConstant.AppLang).isNotEmpty)
         ? sm.getValue(UserConstant.AppLang)
-        : AppLocale.EN;
-    appLog("#CurrentLocale: $currentLocale");
+        : (deviceCode == AppLocale.EN) ? AppLocale.EN: AppLocale.AR;
+    appLog("#CurrentLocale: $currentLocale - $deviceCode");
 
     return LayoutBuilder(
       builder: (context, constraints) {
         return OrientationBuilder(
           builder: (context, orientation) {
             SizerUtil.setScreenSize(constraints, orientation);
-            return MaterialApp(
+            return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+              au.hideKeyboard();
+            },
+            child:MaterialApp(
               color: AppColor.bkg,
               debugShowCheckedModeBanner: false,
               title: Const.appName,
@@ -89,7 +107,7 @@ class _SplashScreenState extends State<MyApp> {
               theme: AppTheme.appTheme,
               themeMode: ThemeMode.light,
               locale: Locale(currentLocale),
-              supportedLocales: [
+              supportedLocales: const [
                 Locale(AppLocale.AR),
                 Locale(AppLocale.EN),
               ],
@@ -102,7 +120,7 @@ class _SplashScreenState extends State<MyApp> {
                   }
                 }
                 return supportedLocales.first;
-              },
+              },),
             );
           },
         );

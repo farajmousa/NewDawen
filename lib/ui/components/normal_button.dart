@@ -18,7 +18,7 @@ class NormalButton extends StatelessWidget {
       Center(
         child:Text(
           '$text',
-          style: TS.cardText.copyWith(color: AppColor.whiteColor,fontSize:Dim.fontSize14),
+          style: TS.textStyle(color: AppColor.white,size:Dim.fontSize14),
         ),
 
       ),
@@ -29,10 +29,10 @@ class NormalButton extends StatelessWidget {
 
     return Container(
        child: MaterialButton(
-        color: AppColor.buttonBackgroundColor,
-        textColor: AppColor.whiteColor,
-        disabledColor: AppColor.lightButtonBackgroundColor,
-        disabledTextColor: AppColor.whiteColor,
+        color: AppColor.accentDark,
+        textColor: AppColor.white,
+        disabledColor: AppColor.text,
+        disabledTextColor: AppColor.white,
         padding: EdgeInsets.all(8.0),
         minWidth: double.infinity,
         height: 55.0,

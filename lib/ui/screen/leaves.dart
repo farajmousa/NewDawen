@@ -99,9 +99,9 @@ class _LeaveScreenState extends ResumableState<LeaveScreen> {
       }),
       body: SafeArea(
         child: Container(
-          color: AppColor.whiteColor,
+          color: AppColor.white,
           child: Container(
-            color: AppColor.whiteColor,
+            color: AppColor.white,
             margin: EdgeInsets.symmetric(horizontal: Dim.w4, vertical: Dim.h2),
             child: ListView(
               children: <Widget>[
@@ -240,7 +240,6 @@ class _LeaveScreenState extends ResumableState<LeaveScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       typeLeaveList = result.getSuccessData() ?? [];
-      print("TypeList: $typeLeaveList");
       refresh();
     } else if (result is ErrorResult) {
       comp.handleApiError(context, error: result.getErrorMessage());
@@ -254,7 +253,6 @@ class _LeaveScreenState extends ResumableState<LeaveScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       holidayList = result.getSuccessData() ?? [];
-      print("holidayList: $holidayList");
       refresh();
     } else if (result is ErrorResult) {
       comp.handleApiError(context, error: result.getErrorMessage());
@@ -268,7 +266,6 @@ class _LeaveScreenState extends ResumableState<LeaveScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       bool isAccepted = result.getSuccessData() ?? false;
-      print("isAccepted: $isAccepted");
       if (isAccepted) {
         if (operation == "delete") {
           _holidayDeleteBloc.checkAccepted(
@@ -305,7 +302,6 @@ class _LeaveScreenState extends ResumableState<LeaveScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       directorList = result.getSuccessData() ?? [];
-      print("TypeList: $directorList");
       refresh();
     } else if (result is ErrorResult) {
       comp.handleApiError(context, error: result.getErrorMessage());

@@ -9,6 +9,7 @@ import 'package:sky_vacation/data/model/entity/id_name.dart';
 import 'package:sky_vacation/helper/app_color.dart';
 import 'package:sky_vacation/helper/dim.dart';
 import 'package:sky_vacation/helper/font_style.dart';
+import '../../helper/app_asset.dart';
 import '../../helper/app_color.dart';
 import 'package:sky_vacation/helper/localize.dart';
 import 'package:sky_vacation/ui/bloc/excuse_list.dart';
@@ -23,6 +24,7 @@ import 'package:sky_vacation/ui/widgets/app_button.dart';
 import 'package:sky_vacation/ui/widgets/app_drop_down.dart';
 import 'package:sky_vacation/ui/widgets/app_text_field.dart';
 import '../../helper/app_decoration.dart';
+import '../../helper/app_util.dart';
 import '../../main.dart';
 import 'package:collection/collection.dart';
 import '../widgets/loading_indicator.dart'; // You have to add this manually, for some reason it cannot be added automatically
@@ -53,6 +55,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
   bool noResults = false;
   bool isLoading = false;
   TextEditingController _reasonCont = TextEditingController();
+  ExpandableController expandableController = ExpandableController();
 
   final HolidayTypesBloc _excuseTypesBloc = sl<HolidayTypesBloc>();
 
@@ -92,6 +95,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
     _excuseTypesBloc.dispose();
     _excuseCreateBloc.dispose();
     _reasonCont.dispose();
+    expandableController.dispose();
     super.dispose();
   }
 
@@ -107,11 +111,10 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
         Navigator.of(context).pop();
       }),
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColor.white,
+      backgroundColor: AppColor.bkg,
       body: SafeArea(
         child: Stack(children: [
           Container(
-            color: AppColor.whiteColor,
             margin: EdgeInsets.symmetric(horizontal: Dim.w4, vertical: Dim.h2),
             child: Column(
               children: <Widget>[
@@ -121,10 +124,20 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
                     child: ExcuseListViewVertical(
                       dataList: excuseList,
                       updateDeleteTapped: (holiday, _operation) {
-                        selectedExcuse = holiday;
-                        operation = _operation;
-                        _checkItemAcceptedBloc.checkAccepted(
-                            Urls.excuseGet, holiday.id ?? 0);
+                        if(!isLoading) {
+                          selectedExcuse = holiday;
+                          operation = _operation;
+                          if (operation == "delete") {
+                            _holidayDeleteBloc.checkAccepted(
+                                Urls.excuseDelete, selectedExcuse?.id ?? 0);
+                          } else if (operation == "update") {
+                            isEdit = true;
+                            expandableController.toggle();
+                            fillOldData();
+                          }
+                          // _checkItemAcceptedBloc.checkAccepted(
+                          //     Urls.excuseGet, holiday.id ?? 0);
+                        }
                       },
                     ),
                   ),
@@ -143,12 +156,13 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
       padding: EdgeInsets.fromLTRB(Dim.w4, Dim.w2, Dim.w4, Dim.w2),
       margin: EdgeInsets.only(bottom: Dim.h2),
       decoration: AppDecor.decoration(
-          borderColor: AppColor.primary,
-          bkgColor: AppColor.bkgBlue,
+          borderColor: AppColor.accentDark,
+          bkgColor: AppColor.accentDark.withOpacity(0.07),
           borderRadius: Dim.w5,
           isShadow: false),
       child: ExpandablePanel(
-        theme: ExpandableThemeData(
+        controller: expandableController,
+        theme: const ExpandableThemeData(
             headerAlignment: ExpandablePanelHeaderAlignment.center),
         header: Text(
           Trans.of(context).t("create_excuse"),
@@ -168,6 +182,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
             AppDropDown(
               hint: 'excuse_type',
               items: typeExcuseList,
+              borderColor: AppColor.white,
               selectedItem: selectedType,
               onItemChanged: (dynamic? newValue) {
                 setState(() {
@@ -212,6 +227,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
               enable: true,
               hint: Trans.of(context).t('excuse_reason'),
               isRequired: true,
+              borderColor: AppColor.white,
               inputType: TextInputType.text,
               controller: _reasonCont,
               onValueChanged: (value) {},
@@ -225,6 +241,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
             AppDropDown(
               hint: 'head_department',
               items: headDepartList,
+              borderColor: AppColor.white,
               selectedItem: selectedHeadDepart,
               onItemChanged: (dynamic? newValue) {
                 setState(() {
@@ -240,6 +257,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
             AppDropDown(
               hint: 'director',
               items: managerList,
+              borderColor: AppColor.white,
               selectedItem: selectedManager,
               onItemChanged: (dynamic? newValue) {
                 setState(() {
@@ -255,6 +273,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
             AppDropDown(
               hint: 'substitute_employee',
               items: supportEmployeeList,
+              borderColor: AppColor.white,
               selectedItem: selectedSupportEmp,
               onItemChanged: (dynamic? newValue) {
                 setState(() {
@@ -269,51 +288,51 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
             ),
             AppButton(
               title: Trans.of(context).t("send"),
+              bkgColor: AppColor.accentDark,
               onTap: () {
-                print("selectedType?.id: ${selectedType?.id}");
-                if (null != _selectedDate &&
-                    _reasonCont.text.isNotEmpty &&
-                    null != selectedHeadDepart &&
-                    null != selectedManager &&
-                    null != selectedSupportEmp &&
-                    null != selectedType) {
-                  if ((selectedType?.id == 3 || selectedType?.id == 6)) {
-                    if (null != _startTime && null != _endTime) {
-                      _excuseCreateBloc.create(
-                          _startTime,
-                          _endTime,
-                          _selectedDate!,
-                          selectedManager?.id ?? 0,
-                          selectedHeadDepart?.id ?? 0,
-                          selectedSupportEmp?.id ?? 0,
-                          selectedType?.id ?? 0,
-                          _reasonCont.text,
-                          holidayId: isEdit ? selectedExcuse?.id : 0);
-                    } else {
-                      comp.displayDialog(
-                          context, Trans.of(context).t("fill_fields"));
-                    }
-                  } else {
-                    _excuseCreateBloc.create(
-                        null,
-                        null,
-                        _selectedDate!,
-                        selectedManager?.id ?? 0,
-                        selectedHeadDepart?.id ?? 0,
-                        selectedSupportEmp?.id ?? 0,
-                        selectedType?.id ?? 0,
-                        _reasonCont.text,
-                        holidayId: isEdit ? selectedExcuse?.id : 0);
-                  }
-                } else {
-                  comp.displayDialog(
-                      context, Trans.of(context).t("fill_fields"));
-                }
+    if(!isLoading) {
+      if (null != _selectedDate &&
+          _reasonCont.text.isNotEmpty &&
+          null != selectedHeadDepart &&
+          null != selectedManager &&
+          null != selectedSupportEmp &&
+          null != selectedType) {
+        if ((selectedType?.id == 3 || selectedType?.id == 6)) {
+          if (null != _startTime && null != _endTime) {
+            _excuseCreateBloc.create(
+                _startTime,
+                _endTime,
+                _selectedDate!,
+                selectedManager?.id ?? 0,
+                selectedHeadDepart?.id ?? 0,
+                selectedSupportEmp?.id ?? 0,
+                selectedType?.id ?? 0,
+                _reasonCont.text,
+                holidayId: isEdit ? selectedExcuse?.id : 0);
+          } else {
+            comp.displayDialog(
+                context, Trans.of(context).t("fill_fields"));
+          }
+        } else {
+          _excuseCreateBloc.create(
+              null,
+              null,
+              _selectedDate!,
+              selectedManager?.id ?? 0,
+              selectedHeadDepart?.id ?? 0,
+              selectedSupportEmp?.id ?? 0,
+              selectedType?.id ?? 0,
+              _reasonCont.text,
+              holidayId: isEdit ? selectedExcuse?.id : 0);
+        }
+      } else {
+        comp.displayDialog(
+            context, Trans.of(context).t("fill_fields"));
+      }
+    }
               },
             ),
-            SizedBox(
-              height: Dim.h3,
-            ),
+
           ],
         ),
       ),
@@ -356,7 +375,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
         .firstWhereOrNull((element) => element.id == selectedExcuse?.dbbossIdd);
 
     for(var  item in managerList){
-      print("#Manager: ${item.id} - ${item.name} - ${selectedExcuse?.dbbossIdd}");
+      appLog("#Manager: ${item.id} - ${item.name} - ${selectedExcuse?.dbbossIdd}");
     }
 
     refresh();
@@ -368,7 +387,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       typeExcuseList = result.getSuccessData() ?? [];
-      print("TypeList: $typeExcuseList");
+      appLog("TypeList: $typeExcuseList");
       refresh();
     } else if (result is ErrorResult) {
       comp.handleApiError(context, error: result.getErrorMessage());
@@ -382,7 +401,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
   //   if (result is SuccessResult) {
   //     if (null == result.getSuccessData()) return;
   //     shiftList = result.getSuccessData() ?? [];
-  //     print("shiftList: $typeExcuseList");
+  //     appLog("shiftList: $typeExcuseList");
   //     refresh();
   //   } else if (result is ErrorResult) {
   //     comp.handleApiError(context, error: result.getErrorMessage());
@@ -410,7 +429,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       bool isAccepted = result.getSuccessData() ?? false;
-      print("isAccepted: $isAccepted");
+      appLog("isAccepted: $isAccepted");
       if (isAccepted) {
         if (operation == "delete") {
           _holidayDeleteBloc.checkAccepted(
@@ -436,7 +455,7 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
       _excuseListBloc.get();
       comp.displayToast(context, Trans.of(context).t("done_success"));
     } else if (result is ErrorResult) {
-      comp.handleApiError(context, error: result.getErrorMessage());
+      comp.handleApiError(context, error: result.getErrorMessage(), img: AppAsset.failed);
     } else if (result is LoadingResult) {
       loading(true);
     }
@@ -447,10 +466,11 @@ class _ExcuseScreenState extends ResumableState<ExcuseScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       clearAllFields();
+      expandableController.toggle();
       _excuseListBloc.get();
       refresh();
     } else if (result is ErrorResult) {
-      comp.handleApiError(context, error: result.getErrorMessage());
+      comp.handleApiError(context, error: result.getErrorMessage(), img: AppAsset.failed);
     } else if (result is LoadingResult) {
       loading(true);
     }

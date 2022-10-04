@@ -1,15 +1,11 @@
-import 'package:sky_vacation/data/model/entity/holiday_data.dart';
 import 'package:sky_vacation/data/model/entity/notification_data.dart';
 import 'package:sky_vacation/helper/app_color.dart';
 import 'package:sky_vacation/helper/app_decoration.dart';
 import 'package:sky_vacation/helper/dim.dart';
 import 'package:sky_vacation/helper/font_style.dart';
 import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/data/model/entity/id_name.dart';
-import 'package:sky_vacation/ui/screen/holidays.dart';
-import 'package:sky_vacation/ui/widgets/app_button.dart';
 import 'package:flutter/material.dart';
-import 'package:collection/collection.dart';
+
 import '../../main.dart';
 
 
@@ -29,7 +25,7 @@ class NotificationListViewVertical extends StatelessWidget {
       itemBuilder: (context, index) {
         return itemOrderWidget(
           context,
-          dataList[index],
+          index,
         );
       },
       separatorBuilder: (context, index) {
@@ -40,10 +36,11 @@ class NotificationListViewVertical extends StatelessWidget {
     );
   }
 
-  Widget itemOrderWidget(BuildContext context, NotificationData item) {
+  Widget itemOrderWidget(BuildContext context, int index) {
+    NotificationData item = dataList[index] ;
     return Container(
         padding: EdgeInsets.fromLTRB(Dim.w4, Dim.w4, Dim.w4, Dim.w4),
-        decoration: AppDecor.decoration(borderColor: AppColor.grayMed, bkgColor: AppColor.grayTF, borderRadius: Dim.w5),
+        decoration: AppDecor.decoration(bkgColor: colorsRandom[index%(colorsRandom.length)].withOpacity(0.1), borderRadius: Dim.w5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -55,28 +52,29 @@ class NotificationListViewVertical extends StatelessWidget {
                 style: TS.medBlack10,
               ),
               Text("${Trans.of(context).t("request_id")}:  #${item.requestId ?? ""}",
-                style: TS.medBlack10,
+                style: TS.medPrimary10,
               ),
             ],),
             SizedBox(
               height: Dim.h1_5,
             ),
             Text(
-              "${item.title ?? ""}",
-              style: TS.medBlack10,
+              item.title ?? "",
+              style: TS.textStyle(color: colorsRandom[index%(colorsRandom.length)],
+                  size: Dim.s12, weight: FontWeight.w600),
             ),
             SizedBox(
               height: Dim.h_8,
             ),
             Text(
-              "${item.message ?? ""}",
+              item.message ?? "",
               style: TS.regularBlack10,
             ),
             SizedBox(
-              height: Dim.h_8,
+              height: Dim.h2,
             ),
             Text(
-              "${item.date ?? ""}",
+              item.date ?? "",
               style: TS.regularGray8,
               textAlign: TextAlign.end,
             ),

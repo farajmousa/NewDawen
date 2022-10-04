@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../helper/app_color.dart';
+import '../../helper/app_util.dart';
 // import 'package:image/image.dart' as Img;
 
 
@@ -55,20 +56,19 @@ class StateScreen extends State<MyImagePicker> {
                       if (pickedFile != null) {
                         var file = File(pickedFile.path);
                         var size = await file.length() ;
-                        print("Image size: ${size}");
                         setState(()  {
                           // imageFile = File(pickedFile.path);
                           widget.onImagePicked(file.path);
                         });
                       } else {
-                        print('No image selected.');
+                        appLog('No image selected.');
                       }
                   },
                   // shape: new CircleBorder(),
-                  // borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
-                  child: Icon(
+                  // borderSide: BorderSide(color: AppColor.primary, width: 2),
+                  child: const Icon(
                     Icons.camera_alt,
-                    color: AppColor.primaryColor,
+                    color: AppColor.primary,
                     size: 28,
                   ),
                 ),

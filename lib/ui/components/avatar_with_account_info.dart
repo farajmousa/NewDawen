@@ -53,7 +53,7 @@ class AvatarWithAccountInfo extends StatelessWidget {
           child: Center(
             child: Text(
                 name ?? "",
-              style: TextStyle(color: AppColor.whiteColor,fontSize:Dim.fontSize16),
+              style: TextStyle(color: AppColor.white,fontSize:Dim.fontSize16),
               overflow:  TextOverflow.ellipsis
             ),
           ),
@@ -61,7 +61,7 @@ class AvatarWithAccountInfo extends StatelessWidget {
         Center(
           child: Text(
             emailAddress ?? "",
-            style:  TextStyle(color: AppColor.whiteColor,fontSize:Dim.fontSize12),
+            style:  TextStyle(color: AppColor.white,fontSize:Dim.fontSize12),
             overflow:  TextOverflow.ellipsis
           ),
         ),

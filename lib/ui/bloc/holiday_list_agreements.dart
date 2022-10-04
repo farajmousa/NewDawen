@@ -23,7 +23,7 @@ class HolidayListAgreementBloc extends BaseBloc<Result<List<HolidayAgreementData
         addLang: false
       );
 
-      print("#result: $result");
+      appLog("#result: $result");
         List<HolidayAgreementData> dataList = (jsonDecode(result) as List)
             .map((itemWord) => HolidayAgreementData.fromJson(itemWord))
             .toList();

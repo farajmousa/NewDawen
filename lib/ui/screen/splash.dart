@@ -21,24 +21,26 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final TokenBloc _loginBloc = sl<TokenBloc>();
+  // final TokenBloc _loginBloc = sl<TokenBloc>();
 
   @override
   void initState() {
-    _loginBloc.mainStream.listen(_observeLogin);
+    // _loginBloc.mainStream.listen(_observeLogin);
     super.initState();
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) async {
-
-      if (sm.getCompany() != null) {
-        if (sm.getUser() != null) {
-          _loginBloc.getToken();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // Future.delayed(Duration(seconds: 2), () async {
+        if (sm.getCompany() != null) {
+          if (sm.getUser() != null) {
+            Navigator.of(context).pushReplacementNamed(AppRoute.main);
+          } else {
+            Navigator.of(context).pushReplacementNamed(AppRoute.login);
+          }
         } else {
-          Navigator.of(context).pushReplacementNamed(AppRoute.login);
+          Navigator.of(context).pushReplacementNamed(AppRoute.company);
         }
-      } else {
-        Navigator.of(context).pushReplacementNamed(AppRoute.company);
-      }
+      // });
+
     });
   }
 
@@ -49,7 +51,9 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         alignment: Alignment.center,
         child:
-            Image.asset(AppAsset.logo, width: Dim.h40, height: Dim.h40,),
+            Center(
+              child: Image.asset(AppAsset.logo, width: Dim.h40, height: Dim.h40, fit: BoxFit.contain,),
+            )
       ),
     );
   }

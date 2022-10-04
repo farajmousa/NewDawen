@@ -16,10 +16,12 @@ import 'package:sky_vacation/helper/localize.dart';
 import 'package:sky_vacation/ui/bloc/direstors.dart';
 import 'package:sky_vacation/ui/widgets/app_image.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../data/model/entity/notific_counter.dart';
+import '../../helper/app_asset.dart';
 import '../../helper/app_color.dart';
 import '../../helper/user_constant.dart';
-import '../bloc/notifications.dart';
 import '../bloc/send_fcm_token.dart';
+import 'main.dart';
 
 List<IdName> managerList = [];
 List<IdName> headDepartList = [];
@@ -27,11 +29,17 @@ List<IdName> supportEmployeeList = [];
 List homeCounters = [];
 
 class HomeScreen extends StatefulWidget {
-  final List notificationList;
-  final bool isThereNotification;
+  final int? holidayCounter ;
+  final int? excuseCounter ;
   final void Function() navigateToProfile;
-  final void Function() getNotificationsLength;
-  const HomeScreen(this.notificationList , this.isThereNotification, this.navigateToProfile, this.getNotificationsLength);
+  // final void Function() getNotificationsLength;
+   HomeScreen({
+     required this.holidayCounter,
+     required this.excuseCounter,
+    required this.navigateToProfile,
+  }
+      // this.getNotificationsLength,
+      );
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -40,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Company? company;
   int userId = 0;
   String departId = "0";
-  List homeNotificationsCounters = [];
+  // List homeNotificationsCounters = [];
 
   final DirectorsBloc _directorsBloc = sl<DirectorsBloc>();
   final SendFcmTokenBloc _sendFcmTokenBloc = sl<SendFcmTokenBloc>();
@@ -48,12 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    widget.getNotificationsLength();
+    // widget.getNotificationsLength();
     _sendFcmTokenBloc.send();
 
     userId = sm.getUser()?.usId ?? 0;
     departId = "${sm.getUser()?.depId?? 0}" ;
-    getNumbers(userId);
+    // getNumbers(userId);
     _directorsBloc.mainStream.listen(_observeDirectors);
     _directorsBloc.get("${Urls.getAllHeadofDeps}/$departId");
     _directorsBloc.get(Urls.getAllMangers);
@@ -62,75 +70,91 @@ class _HomeScreenState extends State<HomeScreen> {
     company = sm.getCompany();
     super.initState();
   }
-  getNumbers(int userId)async{
-    String token = sm.getValue(UserConstant.accessToken);
-    Response response = await get(
-        Uri.parse("${sm.getCompany()?.Url}${Urls.getHomeCounters}/$userId?lang=$currentLocale"),
-      headers: {'Authorization': 'Bearer $token'}
-    );
-    if(response.statusCode > 199 && response.statusCode <300){
-      setState(() {
-        homeNotificationsCounters = jsonDecode(response.body)["result"]["response_data"];
-      });
-    }
 
-    print(homeNotificationsCounters);
-    print("#homeCounters: $homeCounters");
-  }
+  // getNumbers(int userId)async{
+  //   String token = sm.getValue(UserConstant.accessToken);
+  //   Response response = await get(
+  //       Uri.parse("${sm.getCompany()?.Url}${Urls.getHomeCounters}/$userId?lang=$currentLocale"),
+  //     headers: {'Authorization': 'Bearer $token'}
+  //   );
+  //   if(response.statusCode > 199 && response.statusCode <300){
+  //     setState(() {
+  //       homeNotificationsCounters = jsonDecode(response.body)["result"]["response_data"];
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.symmetric(horizontal: Dim.w4, vertical: Dim.h2),
 
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "${Trans.of(context).t("welcome_to")}:  ${sm.getCompany()?.CompName}",
-              style: TS.boldPrimary11,
+          Container(
+            decoration: AppDecor.roundedBottom(bkgColor: AppColor.primary,
+                borderRadius: 0),
+            padding: EdgeInsets.symmetric(horizontal: Dim.w5, vertical: Dim.h4),
+
+            child:  Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${Trans.of(context).t("hi")}  ${sm.getUser()?.name ?? ""}",
+                      style: TS.textStyle(color: AppColor.white, size: Dim.s11, weight: FontWeight.w600),
+                    ),
+                    SizedBox(height: Dim.h_8,),
+                    Text(
+                      "${Trans.of(context).t("welcome_to")}:  ${sm.getCompany()?.CompName}",
+                      style: TS.textStyle(color: AppColor.accentDark, size: Dim.s12, weight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                if (null != sm.getCompany()?.CompLogo)
+                  AppImage(
+                    img: sm.getCompany()?.CompLogo ?? "",
+                    fit: BoxFit.contain,
+                    height: Dim.h6,
+                    width: Dim.h6,
+                    radius: Dim.w1_5,
+                  ),
+              ],
             ),
-            if (null != sm.getCompany()?.CompLogo)
-              AppImage(
-                img: sm.getCompany()?.CompLogo ?? "",
-                fit: BoxFit.contain,
-                height: Dim.h6,
-                width: Dim.h6,
-              ),
-          ],
-        ),
+          ),
 
         SizedBox(
-          height: Dim.h2,
+          height: Dim.h1,
         ),
     Container(
       width:MediaQuery.of(context).size.width,
       height:MediaQuery.of(context).size.height - 210,
       child: GridView.count(
         crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        crossAxisSpacing: Dim.w3,
+        mainAxisSpacing: Dim.w3,
+        padding: EdgeInsets.symmetric(horizontal: Dim.w3, vertical: Dim.h2),
+
         primary: false,
         children: [
-          item(Icons.person_pin ,Trans.of(context).t("homeProfile"), () { widget.navigateToProfile();}),
-          item( Icons.fingerprint , Trans.of(context).t("checkin_checkout"), () {
+          item(AppAsset.profile2 ,Trans.of(context).t("homeProfile"), AppColor.accentDark,() { widget.navigateToProfile();}),
+          item( AppAsset.faceprint , Trans.of(context).t("checkin_checkout"), AppColor.green, () {
             Navigator.of(context).pushNamed(AppRoute.checkInOut);
           }),
-          item( Icons.card_giftcard ,  Trans.of(context).t("holidays"), () {
+          item( AppAsset.holiday ,  Trans.of(context).t("holidays"),  AppColor.blue,() {
             Navigator.of(context).pushNamed(AppRoute.holidays);
           }),
-          item(Icons.thumb_up_alt ,Trans.of(context).t("holidays_agreements"), () {
+          item(AppAsset.holiday_agree ,Trans.of(context).t("holidays_agreements"), AppColor.redTomato, () {
             Navigator.of(context).pushNamed(AppRoute.holidaysAgreements,
                 arguments: Urls.holidayGetAllAgreements);
-          } , hasNotify: widget.isThereNotification, notificationNum: widget.notificationList.isNotEmpty? widget.notificationList[2]["actionValue"] : '0'),
-          item(FontAwesomeIcons.handPointUp , Trans.of(context).t("excuses"), () {
+          } , notificationNum: widget.holidayCounter ?? 0),
+          item(AppAsset.excuse , Trans.of(context).t("excuses"),  AppColor.greenBlue,() {
             Navigator.of(context).pushNamed(AppRoute.excuse);
           } ),
-          item(Icons.thumb_up_alt ,Trans.of(context).t("excuse_agreements"), () {
+          item(AppAsset.excuse_agree ,Trans.of(context).t("excuse_agreements"), AppColor.purple, () {
             Navigator.of(context).pushNamed(AppRoute.excuseAgreements,
                 arguments: Urls.excuseGetAllAgreements);
-          } , hasNotify: widget.isThereNotification , notificationNum: widget.notificationList.isNotEmpty? widget.notificationList[1]["actionValue"] : '0'),
+          } , notificationNum: widget.excuseCounter ?? 0),
 
         ],
       ),
@@ -149,43 +173,47 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget item(IconData mainIcon ,String title, Function() onTap , {bool hasNotify = false , String notificationNum = '0'}) {
+  Widget item(String mainIcon ,String title, Color color , Function() onTap ,{ int notificationNum = 0}) {
     return InkWell(
       onTap: onTap,
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: Dim.w4, vertical: Dim.h2),
-            margin: EdgeInsets.symmetric( vertical: Dim.h_8),
-            decoration: AppDecor.decoration(borderColor: AppColor.grayLight),
+            padding: EdgeInsets.fromLTRB(Dim.w4, Dim.h3, Dim.w4, 0),
+            // margin: EdgeInsets.symmetric( vertical: Dim.h1, horizontal: Dim.h1),
+            decoration: AppDecor.decoration(bkgColor: AppColor.white, borderRadius: Dim.w6),
             height:200,
             child: Column(
               children: [
-                Icon(mainIcon ,  size: 100),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      textAlign: TextAlign.center,
-                      title,
-                      style: TS.medBlack10,
-                    ),
-                  ]
+
+                CircleAvatar(
+                  backgroundColor: color,
+                  radius:  Dim.h5,
+                  child:   Image.asset(mainIcon ,  width: Dim.h5,
+                    height: Dim.h5, color: AppColor.white,),
                 ),
+               SizedBox(height: Dim.h1,),
+               Center(
+                 child:  Text(
+                   textAlign: TextAlign.center,
+                   title,
+                   style: TS.medBlack10,
+                 ),
+               ),
               ],
             ),
           ),
-          hasNotify ? Positioned(
+          if(notificationNum > 0) Positioned(
             right: 0,
             top: 0,
             child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(40)),
                 child: Container(
-                    width: 35,
-                    height: 35,
+                    width: Dim.w6,
+                    height: Dim.w6,
                     color: AppColor.red,
-                    child: Center(child: Text(notificationNum , style: TextStyle(color: Colors.white ,  fontSize: 18),)))),
-          ) : SizedBox()
+                    child: Center(child: Text(notificationNum.toString() , style: TS.textStyle(color: Colors.white ,  size: Dim.s9, weight: FontWeight.bold), )))),
+          ),
         ],
       ),
     );
@@ -195,16 +223,13 @@ class _HomeScreenState extends State<HomeScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       String url = result.getSuccessData()!.keys.toList().first;
-      if (url == "${Urls.getAllHeadofDeps}/$departId")
+      if (url == "${Urls.getAllHeadofDeps}/$departId") {
         headDepartList = result.getSuccessData()![url] ?? [];
-      else if (url == Urls.getAllMangers)
+      } else if (url == Urls.getAllMangers) {
         managerList = result.getSuccessData()![url] ?? [];
-      else if (url == "${Urls.getAllSupportEmployees}/$userId")
+      } else if (url == "${Urls.getAllSupportEmployees}/$userId") {
         supportEmployeeList = result.getSuccessData()![url] ?? [];
-      print("#_observeDirectors url: $url");
-      print("#headDepartList: $headDepartList");
-      print("#managerList: $managerList");
-      print("#supportEmployeeList: $supportEmployeeList");
+      }
 
     } else if (result is ErrorResult) {
       comp.handleApiError(context, error: result.getErrorMessage());

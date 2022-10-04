@@ -26,13 +26,14 @@ class RoundedButton extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16.0),
       child: Icon(
         icon,
-        color: AppColor.whiteColor,
+        color: AppColor.white,
       ),
     ),
       Center(
         child:Text(
-          '$text',
-          style: TS.buttonTextStyle.copyWith(fontSize: this.fontSize ?? Dim.s13,fontWeight: FontWeight.bold),
+          text,
+          style: TS.textStyle(size: this.fontSize ?? Dim.s12,
+              weight: FontWeight.bold, color: AppColor.white),
         ),
 
       ),
@@ -49,11 +50,11 @@ class RoundedButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        color: (null != backgroundColor)? backgroundColor: AppColor.buttonBackgroundColor,
-        textColor: AppColor.whiteColor,
-        disabledColor: AppColor.lightButtonBackgroundColor,
-        disabledTextColor: AppColor.whiteColor,
-        padding: EdgeInsets.all(8.0),
+        color: (null != backgroundColor)? backgroundColor: AppColor.accentDark,
+        textColor: AppColor.white,
+        disabledColor: AppColor.gray,
+        disabledTextColor: AppColor.white,
+        padding: EdgeInsets.all(Dim.w2),
         minWidth: double.infinity,
         height: Dim.h6,
         child: Stack(

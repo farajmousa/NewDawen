@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:sky_vacation/base/base_exception.dart';
 import 'package:sky_vacation/data/model/entity/company.dart';
-import 'package:sky_vacation/helper/app_constant.dart';
 import 'package:sky_vacation/helper/app_util.dart';
 import 'package:sky_vacation/helper/user_constant.dart';
 import 'package:http/http.dart';
@@ -27,11 +26,13 @@ class ApiRepo {
       bool isFormData = false,
       bool isBaseApi = false,
       bool addLang = true,
+        String? baseUrl,
       bool isNewResponse = true}) async {
     try {
       String token = sm.getValue(UserConstant.accessToken);
-      if (token.isNotEmpty)
+      if (token.isNotEmpty) {
         header = {...header, 'Authorization': 'Bearer $token'};
+      }
       if (!isFormData) {
         header = {...header, 'Content-type': 'application/json'};
       } else {
@@ -43,7 +44,7 @@ class ApiRepo {
 
       String urlPath = (isBaseApi)
           ? "${Urls.baseUrl}$endPoint"
-          : "${company?.Url}$endPoint";
+          : "${ baseUrl ?? (company?.Url)}$endPoint";
       if(addLang)urlPath = "$urlPath?lang=$currentLocale";
 
       String encodedUri = Uri.encodeFull(urlPath);
@@ -108,8 +109,9 @@ class ApiRepo {
       appLog("Request Header: $header");
       appLog("Request Url: $method - $urlPath");
       if (null != queries) appLog("Request Queries: $queries");
-      if (null != body)
+      if (null != body) {
         appLog("Request Body: ${(isFormData) ? body : json.encode(body)}");
+      }
       appLog("Response: $statusCode - $responseString");
 
       if (statusCode >= 200 && statusCode < 400) {
@@ -130,12 +132,21 @@ class ApiRepo {
       if (statusCode == 401 ||
           responseString
               .contains("Current user did not login to the application")) {
-        Phoenix.rebirth(appContext!);
-        throw UnAuthException();
+        // Phoenix.rebirth(appContext!);
+        // throw UnAuthException();
+        throw BaseException( 'un_authorized');
       }
       if (statusCode == 404) {
-        return responseString;
-      } else {
+        throw BaseException('codeNotValid');
+        // return responseString;
+      }
+      else if (statusCode == 500) { //server error
+        throw BaseException( 'incorrect_data');
+      }
+      else if (statusCode == 502) { //server error
+        throw BaseException( 'no_internet_connection');
+      }
+      else {
         appLog("Step 4");
         throw BaseException('codeBadRequest');
       }

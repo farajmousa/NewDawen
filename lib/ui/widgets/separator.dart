@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sky_vacation/helper/dim.dart';
 
+import '../../helper/app_color.dart';
+import '../../helper/font_style.dart';
+
 class Separator extends StatelessWidget {
   final Color? color;
   final double? horizontalMargin;
@@ -16,6 +19,58 @@ class Separator extends StatelessWidget {
           vertical: verticalMargin ?? Dim.h1),
       height: 0.5,
       color: color ?? Colors.grey.withOpacity(0.5), // line
+    );
+  }
+}
+
+class SeparatorTitle extends StatelessWidget {
+  final Color? color;
+  final double? horizontalMargin;
+  final double? verticalMargin;
+  final double? height;
+  final String? title;
+
+  SeparatorTitle(
+      {required this.title,
+        this.color,
+        this.verticalMargin,
+        this.horizontalMargin,
+        this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: horizontalMargin ?? 0,
+                vertical: verticalMargin ?? Dim.h2),
+            height: height ?? 0.3,
+            color: color ?? AppColor.gray, // line
+          ),
+        ),
+        SizedBox(
+          width: Dim.w4,
+        ),
+        Text(
+          title ?? "",
+          style: TS.medBlack12,
+        ),
+        SizedBox(
+          width: Dim.w4,
+        ),
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: horizontalMargin ?? 0,
+                vertical: verticalMargin ?? Dim.h2),
+            height: height ?? 0.3,
+            color: color ?? AppColor.gray, // line
+          ),
+        ),
+      ],
     );
   }
 }

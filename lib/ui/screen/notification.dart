@@ -55,9 +55,9 @@ class _ScreenState extends ResumableState<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.bkg,
       appBar: comp.appBar(Trans.of(context).t("notificationText"), backTapped: () {
       }, showBack: false),
-      backgroundColor: AppColor.white,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Stack(

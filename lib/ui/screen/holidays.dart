@@ -10,6 +10,7 @@ import 'package:sky_vacation/helper/app_color.dart';
 import 'package:sky_vacation/helper/app_decoration.dart';
 import 'package:sky_vacation/helper/dim.dart';
 import 'package:sky_vacation/helper/font_style.dart';
+import '../../helper/app_asset.dart';
 import '../../helper/app_color.dart';
 import 'package:sky_vacation/helper/localize.dart';
 import 'package:sky_vacation/ui/bloc/holiday.dart';
@@ -47,6 +48,7 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
 
   bool isLoading = false;
   bool noResults = false;
+  ExpandableController expandableController = ExpandableController();
 
   TextEditingController _periodCont = TextEditingController();
 
@@ -84,6 +86,7 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
     _holidayTypesBloc.dispose();
     _holidayCreateBloc.dispose();
     _periodCont.dispose();
+    expandableController.dispose();
     super.dispose();
   }
 
@@ -98,7 +101,7 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
       appBar: comp.appBar(Trans.of(context).t("holidays"), backTapped: () {
         Navigator.of(context).pop();
       }),
-      backgroundColor: AppColor.white,
+      backgroundColor: AppColor.bkg,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Stack(
@@ -113,10 +116,18 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
                    Expanded(child:  HolidayListViewVertical(
                      dataList: holidayList,
                      updateDeleteTapped: (holiday, _operation) {
-                       selectedHoliday = holiday;
-                       operation = _operation;
-                       _checkItemAcceptedBloc.checkAccepted(
-                           Urls.holidayGet, holiday.id ?? 0);
+                       if(!isLoading) {
+                         selectedHoliday = holiday;
+                         operation = _operation;
+                         if (operation == "delete") {
+                           _holidayDeleteBloc.checkAccepted(
+                               Urls.holidayDelete, selectedHoliday?.id ?? 0);
+                         } else if (operation == "update") {
+                           isEdit = true;
+                           expandableController.toggle();
+                           fillOldData();
+                         }
+                       }
                      },
                    ),),
 
@@ -136,12 +147,13 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
       padding: EdgeInsets.fromLTRB(Dim.w4, Dim.w2, Dim.w4, Dim.w2),
       margin: EdgeInsets.only(bottom: Dim.h2),
       decoration: AppDecor.decoration(
-          borderColor: AppColor.primary,
-          bkgColor: AppColor.bkgBlue,
+          borderColor: AppColor.accentDark,
+          bkgColor: AppColor.accentDark.withOpacity(0.07),
           borderRadius: Dim.w5, isShadow: false),
 
       child: ExpandablePanel(
-        theme: ExpandableThemeData(headerAlignment: ExpandablePanelHeaderAlignment.center),
+        controller: expandableController,
+        theme: const ExpandableThemeData(headerAlignment: ExpandablePanelHeaderAlignment.center),
         header: Text(
           Trans.of(context).t("create_holiday"),
           style: TS.boldBlack11,
@@ -160,6 +172,7 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
             AppDropDown(
               hint: 'select_type',
               items: typeHolidayList,
+              borderColor: AppColor.white,
               selectedItem: selectedType,
               onItemChanged: (dynamic? newValue) {
                 setState(() {
@@ -178,6 +191,7 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
               hint: Trans.of(context).t('period'),
               isRequired: true,
               inputType: TextInputType.number,
+              borderColor: AppColor.white,
               controller: _periodCont,
               onValueChanged: (value) {},
               onValidate: (value) {
@@ -190,6 +204,7 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
             AppDropDown(
               hint: 'head_department',
               items: headDepartList,
+              borderColor: AppColor.white,
               selectedItem: selectedHeadDepart,
               onItemChanged: (dynamic? newValue) {
                 setState(() {
@@ -205,6 +220,7 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
             AppDropDown(
               hint: 'director',
               items: managerList,
+              borderColor: AppColor.white,
               selectedItem: selectedManager,
               onItemChanged: (dynamic? newValue) {
                 setState(() {
@@ -220,6 +236,7 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
             AppDropDown(
               hint: 'substitute_employee',
               items: supportEmployeeList,
+              borderColor: AppColor.white,
               selectedItem: selectedSupportEmp,
               onItemChanged: (dynamic? newValue) {
                 setState(() {
@@ -234,29 +251,29 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
             ),
             AppButton(
               title: Trans.of(context).t("send"),
+              bkgColor: AppColor.accentDark,
               onTap: () {
-                if (null != _selectedDate &&
-                    _periodCont.text.isNotEmpty &&
-                    null != selectedHeadDepart &&
-                    null != selectedManager &&
-                    null != selectedSupportEmp &&
-                    null != selectedType) {
-                  _holidayCreateBloc.create(
-                      _selectedDate!,
-                      int.tryParse(_periodCont.text) ?? 0,
-                      selectedManager?.id ?? 0,
-                      selectedHeadDepart?.id ?? 0,
-                      selectedSupportEmp?.id ?? 0,
-                      selectedType?.id ?? 0,
-                      holidayId: isEdit ? selectedHoliday?.id : 0);
-                } else {
-                  comp.displayDialog(
-                      context, Trans.of(context).t("fill_fields"));
+                if(!isLoading) {
+                  if (null != _selectedDate &&
+                      _periodCont.text.isNotEmpty &&
+                      null != selectedHeadDepart &&
+                      null != selectedManager &&
+                      null != selectedSupportEmp &&
+                      null != selectedType) {
+                    _holidayCreateBloc.create(
+                        _selectedDate!,
+                        int.tryParse(_periodCont.text) ?? 0,
+                        selectedManager?.id ?? 0,
+                        selectedHeadDepart?.id ?? 0,
+                        selectedSupportEmp?.id ?? 0,
+                        selectedType?.id ?? 0,
+                        holidayId: isEdit ? selectedHoliday?.id : 0);
+                  } else {
+                    comp.displayDialog(
+                        context, Trans.of(context).t("fill_fields"));
+                  }
                 }
               },
-            ),
-            SizedBox(
-              height: Dim.h3,
             ),
           ],
         ),
@@ -297,7 +314,6 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       typeHolidayList = result.getSuccessData() ?? [];
-      print("TypeList: $typeHolidayList");
       refresh();
     } else if (result is ErrorResult) {
       comp.handleApiError(context, error: result.getErrorMessage());
@@ -325,7 +341,6 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       bool isAccepted = result.getSuccessData() ?? false;
-      print("isAccepted: $isAccepted");
       if (isAccepted) {
         if (operation == "delete") {
           _holidayDeleteBloc.checkAccepted(
@@ -351,7 +366,7 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
       _holidayListBloc.get();
       comp.displayToast(context, Trans.of(context).t("done_success"));
     } else if (result is ErrorResult) {
-      comp.handleApiError(context, error: result.getErrorMessage());
+      comp.handleApiError(context, error: result.getErrorMessage(), img: AppAsset.failed);
     } else if (result is LoadingResult) {
       loading(true);
     }
@@ -362,10 +377,11 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       clearAllFields();
+      expandableController.toggle();
       _holidayListBloc.get();
       refresh();
     } else if (result is ErrorResult) {
-      comp.handleApiError(context, error: result.getErrorMessage());
+      comp.handleApiError(context, error: result.getErrorMessage(), img: AppAsset.failed);
     } else if (result is LoadingResult) {
       loading(true);
     }

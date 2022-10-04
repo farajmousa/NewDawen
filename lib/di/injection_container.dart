@@ -28,6 +28,8 @@ import 'package:sky_vacation/ui/widgets/components.dart';
 
 import '../ui/bloc/check_in_out.dart';
 import '../ui/bloc/excuse_list_agreements.dart';
+import '../ui/bloc/home_notification_counter.dart';
+import '../ui/bloc/logout.dart';
 import '../ui/bloc/notifications.dart';
 import '../ui/bloc/user_locations_list.dart';
 
@@ -56,6 +58,7 @@ void injectBlocs() {
 
   sl.registerFactory(() => LoginCompanyBloc(sl()));
   sl.registerFactory(() => LoginBloc(sl()));
+  sl.registerFactory(() => LogoutBloc(sl()));
   sl.registerFactory(() => TokenBloc(sl()));
   sl.registerFactory(() => HolidayTypesBloc(sl()));
   sl.registerFactory(() => HolidayCreateBloc(sl()));
@@ -63,6 +66,8 @@ void injectBlocs() {
   sl.registerFactory(() => HolidayListBloc(sl()));
   sl.registerFactory(() => CheckItemAcceptedBloc(sl()));
   sl.registerFactory(() => HolidayDeleteBloc(sl()));
+  sl.registerFactory(() => HomeNotificationCounterBloc(sl()));
+
 
   sl.registerFactory(() => UserShiftBloc(sl()));
   sl.registerFactory(() => ExecuseCreateBloc(sl()));

@@ -6,6 +6,8 @@ import 'package:sky_vacation/helper/localize.dart';
 import 'package:sky_vacation/ui/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import '../../data/model/entity/excuse_agreement_data.dart';
+import '../../main.dart';
+import 'row_item.dart';
 
 
 class ExcuseAgreementListViewVertical extends StatelessWidget {
@@ -26,7 +28,7 @@ class ExcuseAgreementListViewVertical extends StatelessWidget {
       itemBuilder: (context, index) {
         return itemOrderWidget(
           context,
-          dataList[index],
+          index,
         );
       },
       separatorBuilder: (context, index) {
@@ -37,63 +39,35 @@ class ExcuseAgreementListViewVertical extends StatelessWidget {
     );
   }
 
-  Widget itemOrderWidget(BuildContext context, ExcuseAgreementData item) {
-
+  Widget itemOrderWidget(BuildContext context,int index ) {
+    ExcuseAgreementData item = dataList[index];
     return Container(
         padding: EdgeInsets.fromLTRB(Dim.w4, Dim.w4, Dim.w4, Dim.w4),
-        decoration: AppDecor.decoration(borderColor: AppColor.grayMed, bkgColor: AppColor.grayTF, borderRadius: Dim.w5),
+        decoration: AppDecor.decoration( bkgColor: colorsRandom[index%(colorsRandom.length)].withOpacity(0.1), borderRadius: Dim.w5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: Dim.h1,
             ),
-            Text("${Trans.of(context).t("id")}:  ${item.id}",
-              style: TS.medBlack10,
+            rowItem(Trans.of(context).t("id"),  "${item.id}"),
+
+            rowItem(
+              Trans.of(context).t("emp_name"),  item.empName ?? "",valueCol: AppColor.primary
             ),
+
+            rowItem(Trans.of(context).t("request_date"),item.edate ?? "",),
+
+            rowItem(
+              Trans.of(context).t("excuse_type"), item.typename ??"",),
+
+            rowItem(Trans.of(context).t("excuse_reason"), item.excwhy ??""),
+
+            rowItem(Trans.of(context).t("work_duration"), item.shName ?? "0"),
+
+            rowItem(Trans.of(context).t("status"), item.exstatuestext ?? "", valueCol: colorsRandom[index%(colorsRandom.length)]),
             SizedBox(
-              height: Dim.h_8,
-            ),
-            Text(
-              "${Trans.of(context).t("emp_name")}:  ${item.empName ?? ""}",
-              style: TS.medBlack10,
-            ),
-            SizedBox(
-              height: Dim.h_8,
-            ),
-            Text("${Trans.of(context).t("request_date")}:  ${item.edate ?? ""}",
-              style: TS.medBlack10,
-            ),
-            SizedBox(
-              height: Dim.h_8,
-            ),
-            Text(
-              "${Trans.of(context).t("excuse_type")}:  ${item.typename ??""}",
-              style: TS.medBlack10,
-            ),
-            SizedBox(
-              height: Dim.h_8,
-            ),
-            Text(
-              "${Trans.of(context).t("excuse_reason")}:  ${item.excwhy ??""}",
-              style: TS.medBlack10,
-            ),
-            SizedBox(
-              height: Dim.h_8,
-            ),
-            Text(
-              "${Trans.of(context).t("work_duration")}:  ${item.shName ?? 0}",
-              style: TS.medBlack10,
-            ),
-            SizedBox(
-              height: Dim.h_8,
-            ),
-            Text(
-              "${Trans.of(context).t("status")}:  ${item.exstatuestext ?? ""}",
-              style: TS.medBlack10,
-            ),
-            SizedBox(
-              height: Dim.h1_5,
+              height: Dim.h3,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +76,7 @@ class ExcuseAgreementListViewVertical extends StatelessWidget {
                   width: Dim.w26,
                   height: Dim.h4,
                   titleSize: Dim.s7,
-                  radius: Dim.w1,
+                  radius: Dim.w2,
                   marginHorizontal: Dim.w2,
                   marginVertical: 0,
                   title: Trans.of(context).t("agree"),
@@ -116,7 +90,7 @@ class ExcuseAgreementListViewVertical extends StatelessWidget {
                   height: Dim.h4,
                   bkgColor: AppColor.red,
                   titleSize: Dim.s7,
-                  radius: Dim.w1,
+                  radius: Dim.w2,
                   marginHorizontal: Dim.w2,
                   marginVertical: 0,
                   title: Trans.of(context).t("reject"),

@@ -29,7 +29,7 @@ class HolidayCreateBloc extends BaseBloc<Result<bool>> {
               : ApiMethod.put,
           (null == holidayId || holidayId == 0)
               ? Urls.holidayCreate
-              :"${Urls.holidayUpdate}/$currentLocale",
+              :Urls.holidayUpdate,
           body: {
             "empid": sm.getUser()?.usId ?? 0,
             "dbbossid": bossIdDepart,
@@ -50,11 +50,11 @@ class HolidayCreateBloc extends BaseBloc<Result<bool>> {
             "dbbcancle": "",
             "bcancle": "",
             "id": holidayId ?? 0
-          }, addLang: false);
+          }, addLang: true);
 
       appLog("login result: $result");
       // Map<String, dynamic> map = jsonDecode(result);
-      // print("map['success']: ${map['success']}");
+      // appLog("map['success']: ${map['success']}");
       // if (map.containsKey("result") &&
       //     map["result"] != null &&
       //     map['success'].toString() == "true") {

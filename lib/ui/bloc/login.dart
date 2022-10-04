@@ -29,7 +29,7 @@ class LoginBloc extends BaseBloc<Result<bool>> {
     try {
 
       String url = "${Urls.userLogin}/$email/$password";
-      print("login URL : $url");
+      appLog("login URL : $url");
       var result = await repository.call(
         ApiMethod.get,
         url,

@@ -26,15 +26,17 @@ class AppDropDown extends StatelessWidget {
   final bool? isExpanded;
   final TextStyle? fontStyle;
   final double? borderRadius;
+final Color? borderColor;
+
 
   AppDropDown({required this.items ,required  this.selectedItem, required this.onItemChanged,
     required this.hint, this.enable = true,required this.onDeleteTapped, this.showDelete = true,
-    this.width, this.isRequired = false, this.bkgColor, this.iconColor, this.isExpanded, this.fontStyle, this.borderRadius});
+    this.width, this.isRequired = false, this.bkgColor,  this.borderColor, this.iconColor, this.isExpanded, this.fontStyle, this.borderRadius});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: AppDecor.decoration(borderColor: AppColor.grayMed),
+      decoration: AppDecor.decoration(borderColor: borderColor ?? AppColor.grayLight,borderRadius: Dim.w3),
       // height: (SizerUtil.deviceType == DeviceType.mobile)? Dim.h6 : null,
       width: width,
       margin: EdgeInsets.symmetric(vertical: Dim.h_5),
@@ -61,7 +63,7 @@ class AppDropDown extends StatelessWidget {
       isExpanded: isExpanded ?? true,
       hint: RichText(
         text:  TextSpan(
-          style: fontStyle?? TS.medGrayDark10,
+          style: fontStyle?? TS.regularBlack10,
           children: <TextSpan>[
             TextSpan(
                 text: (null != hint && hint!.isNotEmpty)? "${Trans.of(context).t('$hint')}": ''),
@@ -82,7 +84,7 @@ class AppDropDown extends StatelessWidget {
         size: Dim.h3,
       ),
       elevation: 16,
-      style: fontStyle?? TS.medGrayDark10,
+      style: fontStyle?? TS.regularBlack8,
       underline: Container(),
       alignment: (isExpanded ?? true)? AlignmentDirectional.centerStart :AlignmentDirectional.centerEnd,
       onChanged: (enable)? onItemChanged : null,

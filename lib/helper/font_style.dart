@@ -103,30 +103,30 @@ class TS {
   static TextStyle regularRed6 = textStyle(color: AppColor.red, size: Dim.s6);
 
 //------------
-  static final titleTextStyle = TextStyle(
-    fontSize:Dim.fontSize28,
-    color: AppColor.blackColor,
-    letterSpacing: 2.0,
-
-  );
-  static final kBodyPrimaryTextStyle =
-  TextStyle(fontSize:Dim.fontSize16, color: AppColor.hintFormColor);
-static final buttonTextStyle =
-  TextStyle(fontSize:Dim.fontSize14, color: AppColor.whiteColor);
-
-static final homeTextAppBar = TS.boldPrimary13 ;
-  // TextStyle(fontSize:Dim.fontSize19, color: AppColor.waitingColor,fontFamily: "Bold");
-static final cardText =
-  TextStyle(fontSize:Dim.fontSize16, color: AppColor.primaryColor,fontFamily: "Bold");
-
-static final vacationTypeTextStyle =
-  TextStyle(fontSize:Dim.fontSize14, color: AppColor.vacationTypeTextColor,fontFamily: "Bold");
-
-
-
-  static final kBodyLightTextStyle = TextStyle(
-      fontFamily: "Bold",
-      fontSize:Dim.fontSize16,
-      color: AppColor.hintEditTextColor,
-      decoration: TextDecoration.none);
+//   static final titleTextStyle = TextStyle(
+//     fontSize:Dim.fontSize28,
+//     color: AppColor.blackColor,
+//     letterSpacing: 2.0,
+//
+//   );
+//   static final kBodyPrimaryTextStyle =
+//   TextStyle(fontSize:Dim.fontSize16, color: AppColor.hintFormColor);
+// static final buttonTextStyle =
+//   TextStyle(fontSize:Dim.fontSize14, color: AppColor.white);
+//
+// static final homeTextAppBar = TS.boldPrimary13 ;
+//   // TextStyle(fontSize:Dim.fontSize19, color: AppColor.waitingColor,fontFamily: "Bold");
+// static final cardText =
+//   TextStyle(fontSize:Dim.fontSize16, color: AppColor.primary,fontFamily: "Bold");
+//
+// static final vacationTypeTextStyle =
+//   TextStyle(fontSize:Dim.fontSize14, color: AppColor.vacationTypeTextColor,fontFamily: "Bold");
+//
+//
+//
+//   static final kBodyLightTextStyle = TextStyle(
+//       fontFamily: "Bold",
+//       fontSize:Dim.fontSize16,
+//       color: AppColor.hintEditTextColor,
+//       decoration: TextDecoration.none);
 }

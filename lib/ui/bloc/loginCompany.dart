@@ -26,11 +26,11 @@ class LoginCompanyBloc extends BaseBloc<Result<bool>> {
     try {
       String url = "${Urls.companyLogin}/$email/$password";
 
-      var result = await repository.call(ApiMethod.get, url,isBaseApi: true, addLang: false, isNewResponse: false);
-      Map<String, dynamic> map = jsonDecode(result);
+      var resultLoginCompany = await repository.call(ApiMethod.get, url,
+          isBaseApi: true, addLang: false, isNewResponse: false);
+      Map<String, dynamic> map = jsonDecode(resultLoginCompany);
       if (map['Status'] == "Success") {
-        Company company = Company.decodedJson(result);
-        sm.setCompany(company);
+        Company company = Company.decodedJson(resultLoginCompany);
 
         var resultToken = await repository.call(ApiMethod.post, Urls.tokenAuth,
             body: {
@@ -38,11 +38,18 @@ class LoginCompanyBloc extends BaseBloc<Result<bool>> {
               "password": "123qwe",
               "rememberClient": "true"
             },
-            isFormData: false, addLang: false, isNewResponse: false);
+            baseUrl: company.Url,
+            isFormData: false,
+            addLang: false,
+            isNewResponse: false);
         appLog("Token: $resultToken");
         Map<String, dynamic> mapToken =
             jsonDecode(resultToken); //{map["result"]["accessToken"]}
         if (mapToken.containsKey("result")) {
+
+          //save login response
+          sm.setCompany(company);
+          //-------
           sm.setValue(UserConstant.accessToken,
               mapToken["result"]["accessToken"].toString());
           emit(Result.success(true));
@@ -52,7 +59,7 @@ class LoginCompanyBloc extends BaseBloc<Result<bool>> {
       } else if (map.containsKey("Status") &&
           map['Status'].toString().isNotEmpty) {
         appLog("Step 2");
-        emit(Result.error("${map['Status'].toString()}"));
+        emit(Result.error(map['Status'].toString()));
       } else {
         emit(Result.error('codeBadRequest'));
       }

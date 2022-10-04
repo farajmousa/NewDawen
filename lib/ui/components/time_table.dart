@@ -21,7 +21,7 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return Card(
-//         color: AppColor.whiteColor,
+//         color: AppColor.white,
 //         shape: RoundedRectangleBorder(
 //           borderRadius: BorderRadius.circular(10.0),
 //         ),

@@ -107,9 +107,9 @@ class _AbsentsScreenState extends ResumableState<AbsentsScreen> {
       }),
       body: SafeArea(
         child: Container(
-          color: AppColor.whiteColor,
+          color: AppColor.white,
           child: Container(
-            color: AppColor.whiteColor,
+            color: AppColor.white,
             margin: EdgeInsets.symmetric(horizontal: Dim.w4, vertical: Dim.h2),
             child: ListView(
               children: <Widget>[
@@ -322,7 +322,6 @@ class _AbsentsScreenState extends ResumableState<AbsentsScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       typeExcuseList = result.getSuccessData() ?? [];
-      print("TypeList: $typeExcuseList");
       refresh();
     } else if (result is ErrorResult) {
       comp.handleApiError(context, error: result.getErrorMessage());
@@ -336,7 +335,7 @@ class _AbsentsScreenState extends ResumableState<AbsentsScreen> {
   //   if (result is SuccessResult) {
   //     if (null == result.getSuccessData()) return;
   //     shiftList = result.getSuccessData() ?? [];
-  //     print("shiftList: $typeExcuseList");
+  //     appLog("shiftList: $typeExcuseList");
   //     refresh();
   //   } else if (result is ErrorResult) {
   //     comp.handleApiError(context, error: result.getErrorMessage());
@@ -350,7 +349,6 @@ class _AbsentsScreenState extends ResumableState<AbsentsScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       excuseList = result.getSuccessData() ?? [];
-      print("holidayList: $excuseList");
       refresh();
     } else if (result is ErrorResult) {
       comp.handleApiError(context, error: result.getErrorMessage());
@@ -364,7 +362,6 @@ class _AbsentsScreenState extends ResumableState<AbsentsScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       bool isAccepted = result.getSuccessData() ?? false;
-      print("isAccepted: $isAccepted");
       if (isAccepted) {
         if (operation == "delete") {
           _holidayDeleteBloc.checkAccepted(

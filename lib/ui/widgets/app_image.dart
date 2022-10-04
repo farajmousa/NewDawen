@@ -13,10 +13,12 @@ class AppImage extends StatelessWidget {
   final BoxFit? fit;
   final double? width;
   final double? height;
+  final double? placeholderSize;
   final String? placeholder;
   final double? radius;
   final Function? onTap;
   final Color? bkgColor;
+  final Color? placeHolderColor;
 
   AppImage({
     required this.img,
@@ -24,10 +26,12 @@ class AppImage extends StatelessWidget {
     this.fit,
     this.width,
     this.height,
+    this.placeholderSize,
     this.placeholder,
     this.radius,
     this.onTap,
     this.bkgColor,
+    this.placeHolderColor,
   });
 
   @override
@@ -81,9 +85,9 @@ class AppImage extends StatelessWidget {
   Widget placeholderImg(String? placeholder) {
     return Image.asset(
       placeholder ?? AppAsset.logo,
-      width: Dim.h8,
-      height: Dim.h8,
-      color: AppColor.primary,
+      width: placeholderSize ?? Dim.h8,
+      height: placeholderSize ?? Dim.h8,
+      color: placeHolderColor,
     );
   }
 }

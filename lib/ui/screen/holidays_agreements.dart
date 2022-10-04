@@ -7,6 +7,7 @@ import 'package:sky_vacation/di/injection_container.dart';
 import 'package:sky_vacation/data/model/entity/id_name.dart';
 import 'package:sky_vacation/helper/app_color.dart';
 import 'package:sky_vacation/helper/dim.dart';
+import '../../helper/app_asset.dart';
 import '../../helper/app_color.dart';
 import 'package:sky_vacation/helper/localize.dart';
 import 'package:sky_vacation/ui/bloc/holiday_agreement_action.dart';
@@ -79,7 +80,7 @@ class _HolidaysAgreementsScreenState
           backTapped: () {
         Navigator.of(context).pop();
       }),
-      backgroundColor: AppColor.white,
+      backgroundColor: AppColor.bkg,
       body: SafeArea(
         child: Stack(
           children: [
@@ -91,15 +92,20 @@ class _HolidaysAgreementsScreenState
                     HolidayAgreementListViewVertical(
                       dataList: holidayList,
                       updateDeleteTapped: (holiday, _operation) {
-                        selectedHoliday = holiday;
-                        operation = _operation;
-                        if (operation == "agree") {
-                          _holidayAgreementActionBloc.checkAccepted("${Urls.holidayAgreementAccept}/${holiday.id ?? 0}?lang=$currentLocale", holiday.id ?? 0);
-                        } else if (operation == "reject") {
-                          rejectReasonSheet(context, (String reason){
-                            print("reason: $reason");
-                            _holidayAgreementActionBloc.checkAccepted(Urls.holidayAgreementReject, holiday.id ?? 0, rejectReason: reason);
-                          });
+                        if(!isLoading) {
+                          selectedHoliday = holiday;
+                          operation = _operation;
+                          if (operation == "agree") {
+                            _holidayAgreementActionBloc.checkAccepted("${Urls
+                                .holidayAgreementAccept}/${holiday.id ??
+                                0}?lang=$currentLocale", holiday.id ?? 0);
+                          } else if (operation == "reject") {
+                            rejectReasonSheet(context, (String reason) {
+                              _holidayAgreementActionBloc.checkAccepted(
+                                  Urls.holidayAgreementReject, holiday.id ?? 0,
+                                  rejectReason: reason);
+                            });
+                          }
                         }
                       },
                     ),
@@ -139,7 +145,7 @@ class _HolidaysAgreementsScreenState
       _holidayListBloc.get();
       comp.displayToast(context, Trans.of(context).t("done_success"));
     } else if (result is ErrorResult) {
-      comp.handleApiError(context, error: result.getErrorMessage());
+      comp.handleApiError(context, error: result.getErrorMessage(), img: AppAsset.failed);
     } else if (result is LoadingResult) {
       loading(true);
     }

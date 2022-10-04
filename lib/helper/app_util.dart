@@ -7,6 +7,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:location/location.dart';
+import 'package:package_info/package_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'permissions.dart';
 import 'app_constant.dart';
@@ -29,6 +30,19 @@ class AppUtil {
     } else {
       return false;
     }
+  }
+
+
+  Future<String> getVersionName() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    return version;
+  }
+
+  Future<String> getBuildNo() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String buildNumber = packageInfo.buildNumber;
+    return buildNumber;
   }
 
   bool isValidEmail(String value) {
