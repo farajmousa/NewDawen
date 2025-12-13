@@ -12,7 +12,7 @@ class AppTheme {
       brightness: Brightness.light,
       primarySwatch: Colors.orange,
       primaryColor: AppColor.primary,
-      accentColor: AppColor.accent,
+      // accentColor: AppColor.accent,
       primaryColorDark: AppColor.secondary,
       hintColor: AppColor.grayMed,
       splashColor: Colors.white,

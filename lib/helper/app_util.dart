@@ -1,20 +1,20 @@
 import 'dart:developer';
-import 'dart:typed_data';
-import 'package:connectivity/connectivity.dart';
+import 'package:collection/collection.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:location/location.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'permissions.dart';
 import 'app_constant.dart';
 import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
 import 'package:hijri/hijri_calendar.dart';
-import 'package:collection/collection.dart';
+
 
 class AppUtil {
   static Future<bool> isOnline() async {

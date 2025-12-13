@@ -13,7 +13,7 @@ import 'package:sky_vacation/helper/localize.dart';
 import 'package:sky_vacation/ui/bloc/holiday_agreement_action.dart';
 import 'package:sky_vacation/ui/bloc/holiday_list_agreements.dart';
 import 'package:sky_vacation/ui/components/holiday_agreement_list_view_vertical.dart';
-import 'package:sky_vacation/ui/components/reject_reason_sheet.dart';
+import 'package:sky_vacation/ui/components/sheet/reject_reason_sheet.dart';
 import '../../main.dart';
 import '../widgets/loading_indicator.dart';
 

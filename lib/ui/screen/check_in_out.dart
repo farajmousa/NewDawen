@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:need_resume/need_resume.dart';
 import 'package:sky_vacation/data/model/entity/location_data.dart';
 import 'package:sky_vacation/helper/app_asset.dart';
@@ -54,7 +53,7 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
     refresh();
   }
 
-  FToast fToast = FToast();
+  // FToast fToast = FToast();
   @override
   void initState() {
     _userLocationsListBloc.mainStream.listen(_observeUserLocationList);
@@ -66,7 +65,7 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
     });
 
     super.initState();
-    fToast.init(context);
+    // fToast.init(context);
   }
 
   @override
@@ -306,13 +305,13 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
     }
   }
 
-  void showToasted(String msg) => Fluttertoast.showToast(
-        msg: msg,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 10,
-        backgroundColor: Colors.green,
-        toastLength: Toast.LENGTH_LONG,
-      );
+  // void showToasted(String msg) => Fluttertoast.showToast(
+  //       msg: msg,
+  //       gravity: ToastGravity.TOP,
+  //       timeInSecForIosWeb: 10,
+  //       backgroundColor: Colors.green,
+  //       toastLength: Toast.LENGTH_LONG,
+  //     );
 
   // showCustomToast(String msg) {
   //   Widget toast = Container(

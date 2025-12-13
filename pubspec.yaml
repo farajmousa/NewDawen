@@ -31,41 +31,47 @@ dependencies:
     sdk: flutter
 
   sizer: ^2.0.15
-  need_resume: ^1.0.6
-  permission_handler: ^9.0.2
-  shared_preferences: ^2.0.13
-  intl: ^0.17.0
-  http: ^0.13.4
-  get_it: ^6.0.0
-  rxdart: ^0.27.3
-  json_annotation: ^4.4.0
-  flutter_statusbarcolor_ns: ^0.4.0
-  location: ^4.3.0
-  geocoder2: ^1.1.0
-  connectivity: ^3.0.6
-  flutter_styled_toast: ^2.0.0
-  geolocator: ^8.2.0
-  cached_network_image: ^3.2.0
-  grouped_buttons: ^1.0.4
-  flutter_svg: ^1.0.3
-  table_calendar: ^3.0.4
-  flutter_speed_dial: ^5.0.0+1
-  unicorndial: ^1.1.5
+  cupertino_icons: ^1.0.2
+  need_resume: ^1.0.7+1
+  permission_handler: ^11.0.0
+  shared_preferences: ^2.2.1
+  intl: ^0.18.1
+  http: ^1.1.0
+  get_it: ^7.6.4
+  rxdart: ^0.27.7
+  #  json_annotation: ^4.8.1
+  flutter_statusbarcolor_ns: ^0.5.0
+  location: ^5.0.3
+  geocoder2: ^1.4.0
+  connectivity_plus: ^4.0.2
+  flutter_styled_toast: ^2.2.1
+  geolocator: ^10.1.0
+  cached_network_image: ^3.3.0
+  package_info_plus: ^4.1.0
+  #grouped_buttons: ^1.0.4
+  #flut_grouped_buttons: ^0.0.9
+  flutter_svg: ^2.0.7
+  #  table_calendar: ^3.0.9
+  #  flutter_speed_dial: ^7.0.0
+  #  unicorndial: ^1.1.5
+  # fan_floating_menu: ^0.0.1
   platform_device_id: ^1.0.1
-  firebase_messaging_platform_interface: 4.1.0
-  firebase_messaging: ^12.0.1
-  firebase_core: ^1.20.0
-  firebase_analytics: ^9.3.0
+  firebase_messaging_platform_interface: 3.2.0
+  firebase_messaging: ^11.2.7
+  firebase_core: ^1.12.0
+  firebase_analytics: ^9.1.1
   flutter_local_notifications: ^9.4.0
-  image_picker: ^0.8.4+11
+  image_picker: ^1.0.4
   flutter_phoenix: ^1.0.0
-  currency_text_input_formatter: ^2.1.5
+  collection: ^1.16.0
+  currency_text_input_formatter: ^2.1.10
   hijri: ^3.0.0
   expandable: ^5.0.1
-  font_awesome_flutter: ^10.1.0
-  cupertino_icons: ^1.0.2
-  fluttertoast: ^8.0.9
-  package_info: ^2.0.2
+  flutter_localizations:
+    sdk: flutter
+
+dependency_overrides:
+  http: ^1.1.0
 
 
 dev_dependencies:

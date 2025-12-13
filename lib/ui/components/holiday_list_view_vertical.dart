@@ -50,79 +50,85 @@ class HolidayListViewVertical extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(Dim.w5),
       child: Stack(
-          children: [
-
-      Container(
-        padding: EdgeInsets.fromLTRB((currentLocale == AppLocale.EN) ? Dim.w6 :Dim.w4 , Dim.w4, (currentLocale == AppLocale.AR) ? Dim.w6 :Dim.w4, Dim.w4),
-      decoration: AppDecor.decoration(
-          bkgColor: AppColor.bkg,
-          borderRadius: Dim.w5,
-          borderColor: colorsRandom[index % (colorsRandom.length)]), child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-          SizedBox(
-            height: Dim.h1,
+        children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(
+                (currentLocale == AppLocale.EN) ? Dim.w6 : Dim.w4,
+                Dim.w4,
+                (currentLocale == AppLocale.AR) ? Dim.w6 : Dim.w4,
+                Dim.w4),
+            decoration: AppDecor.decoration(
+                bkgColor: AppColor.bkg,
+                borderRadius: Dim.w5,
+                borderColor: colorsRandom[index % (colorsRandom.length)]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: Dim.h1,
+                ),
+                rowItem(Trans.of(context).t("id"), "${item.id}"),
+                rowItem(
+                    Trans.of(context).t("request_date"),
+                    (null != item.startDate)
+                        ? au.formatDateString(item.startDate ?? "")
+                        : ""),
+                rowItem(Trans.of(context).t("holiday_type"),
+                    typeHoliday?.name ?? ""),
+                rowItem(
+                  Trans.of(context).t("period"),
+                  "${item.briod ?? 0}",
+                ),
+                rowItem(Trans.of(context).t("status"), item.hstatuestext ?? "",
+                    valueCol: colorsRandom[index % (colorsRandom.length)]),
+                SizedBox(
+                  height: Dim.h3,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppButton(
+                      width: Dim.w26,
+                      height: Dim.h4,
+                      titleSize: Dim.s7,
+                      radius: Dim.w2,
+                      marginHorizontal: Dim.w2,
+                      marginVertical: 0,
+                      title: Trans.of(context).t("update"),
+                      onTap: () {
+                        updateDeleteTapped(item, "update");
+                      },
+                    ),
+                    AppButton(
+                      width: Dim.w26,
+                      height: Dim.h4,
+                      bkgColor: AppColor.red,
+                      titleSize: Dim.s7,
+                      radius: Dim.w2,
+                      marginHorizontal: Dim.w2,
+                      marginVertical: 0,
+                      title: Trans.of(context).t("delete"),
+                      onTap: () {
+                        updateDeleteTapped(item, "delete");
+                      },
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-          rowItem(Trans.of(context).t("id"), "${item.id}"),
-          rowItem(
-              Trans.of(context).t("request_date"),
-              (null != item.startDate)
-                  ? au.formatDateString(item.startDate ?? "")
-                  : ""),
-          rowItem(Trans.of(context).t("holiday_type"), typeHoliday?.name ?? ""),
-          rowItem(
-            Trans.of(context).t("period"),
-            "${item.briod ?? 0}",
+          Positioned(
+            left: (currentLocale == AppLocale.EN) ? 0 : null,
+            right: (currentLocale == AppLocale.AR) ? 0 : null,
+            top: 0,
+            bottom: 0,
+            child: Container(
+              width: Dim.w2,
+              color: colorsRandom[index % (colorsRandom.length)],
+            ),
           ),
-          rowItem(Trans.of(context).t("status"), item.hstatuestext ?? "",
-              valueCol: colorsRandom[index % (colorsRandom.length)]),
-          SizedBox(
-            height: Dim.h3,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AppButton(
-                width: Dim.w26,
-                height: Dim.h4,
-                titleSize: Dim.s7,
-                radius: Dim.w2,
-                marginHorizontal: Dim.w2,
-                marginVertical: 0,
-                title: Trans.of(context).t("update"),
-                onTap: () {
-                  updateDeleteTapped(item, "update");
-                },
-              ),
-              AppButton(
-                width: Dim.w26,
-                height: Dim.h4,
-                bkgColor: AppColor.red,
-                titleSize: Dim.s7,
-                radius: Dim.w2,
-                marginHorizontal: Dim.w2,
-                marginVertical: 0,
-                title: Trans.of(context).t("delete"),
-                onTap: () {
-                  updateDeleteTapped(item, "delete");
-                },
-              ),
-            ],
-          )
         ],
-      ),),
-
-    Positioned(
-      left: (currentLocale == AppLocale.EN) ? 0 : null,
-      right: (currentLocale == AppLocale.AR) ? 0 : null,
-    top: 0,
-    bottom: 0,
-    child: Container(
-    width: Dim.w2,
-    color: colorsRandom[index % (colorsRandom.length)],
-    ),),
-    ],
-    ),
+      ),
     );
   }
 }

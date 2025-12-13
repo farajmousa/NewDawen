@@ -2,13 +2,9 @@ import 'package:sky_vacation/helper/app_color.dart';
 import 'package:sky_vacation/helper/app_decoration.dart';
 import 'package:sky_vacation/helper/dim.dart';
 import 'package:sky_vacation/helper/font_style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sky_vacation/helper/localize.dart';
-import '../../helper/app_color.dart';
-
-import '../../helper/app_util.dart';
 import '../../main.dart';
 
 class AppButton extends StatelessWidget {
@@ -219,7 +215,7 @@ Widget dateWidget(BuildContext context,  DateTime? selectedDate, Function(DateTi
                   focusColor: AppColor.accentDark,
                   brightness: Brightness.light,
                   backgroundColor: AppColor.white,
-                  buttonColor: AppColor.primary,
+                  // buttonColor: AppColor.primary,
                   unselectedWidgetColor:
                   AppColor.green,
                   dialogBackgroundColor: AppColor.white,
@@ -269,7 +265,7 @@ Widget timeWidget(BuildContext context,  TimeOfDay? selectedDate, Function(TimeO
                   focusColor: AppColor.accentDark,
                   brightness: Brightness.light,
                   backgroundColor: AppColor.white,
-                  buttonColor: AppColor.primary,
+                  // buttonColor: AppColor.primary,
                   unselectedWidgetColor:
                   AppColor.green,
                   dialogBackgroundColor: AppColor.white,

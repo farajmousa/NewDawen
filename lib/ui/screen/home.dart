@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:sky_vacation/base/result.dart';
 import 'package:sky_vacation/data/api/api_urls.dart';
 import 'package:sky_vacation/data/model/entity/id_name.dart';
@@ -15,13 +12,9 @@ import 'package:sky_vacation/data/model/entity/company.dart';
 import 'package:sky_vacation/helper/localize.dart';
 import 'package:sky_vacation/ui/bloc/direstors.dart';
 import 'package:sky_vacation/ui/widgets/app_image.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../data/model/entity/notific_counter.dart';
 import '../../helper/app_asset.dart';
 import '../../helper/app_color.dart';
-import '../../helper/user_constant.dart';
 import '../bloc/send_fcm_token.dart';
-import 'main.dart';
 
 List<IdName> managerList = [];
 List<IdName> headDepartList = [];

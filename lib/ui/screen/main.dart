@@ -1,11 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:need_resume/need_resume.dart';
 import 'package:sky_vacation/data/model/entity/company.dart';
 import 'package:sky_vacation/data/model/entity/user.dart';
 import 'package:sky_vacation/helper/app_asset.dart';
 import 'package:sky_vacation/helper/app_route.dart';
-import 'package:sky_vacation/helper/font_style.dart';
 import 'package:sky_vacation/ui/screen/home.dart';
 import 'package:sky_vacation/ui/screen/notification.dart';
 import 'package:sky_vacation/ui/screen/account.dart';
@@ -18,7 +17,7 @@ import '../../helper/dim.dart';
 import '../../main.dart';
 import '../../helper/app_util.dart';
 import '../bloc/home_notification_counter.dart';
-import 'package:collection/collection.dart';
+
 
 
 
@@ -155,84 +154,6 @@ class _MainScreenState extends ResumableState<MainScreen> {
     );
   }
 
-  Widget floatButton() {
-    return SpeedDial(
-      backgroundColor: AppColor.primary,
-      childMargin: EdgeInsets.fromLTRB(
-          0, 0, MediaQuery.of(context).size.width * 0.475, 50),
-      child: Container(
-        height: 70,
-        width: 70,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(width: 3.0, color: Colors.white),
-        ),
-        child: Icon(
-          Icons.add,
-          size: 28.0,
-          color: AppColor.white,
-        ),
-      ),
-      closeManually: false,
-      curve: Curves.bounceInOut,
-      overlayColor: Colors.black,
-      overlayOpacity: 0.5,
-      elevation: 8.0,
-      shape: const CircleBorder(),
-      children: [
-        (null != company && (company?.CompCode ?? "").startsWith("2"))
-            ? SpeedDialChild(
-                backgroundColor: AppColor.primary,
-                child: Icon(
-                  Icons.account_balance_wallet_rounded,
-                  color: AppColor.white,
-                ),
-                label: Trans.of(context).t("saleOrderText"),
-                labelStyle: TS.medBlack10,
-                onTap: () {
-                  // Get.toNamed(AppStrings.addSaleOrderScreenId);
-                })
-            : SpeedDialChild(
-                backgroundColor: Colors.transparent, child: Center()),
-        SpeedDialChild(
-            backgroundColor: AppColor.primary,
-            child: Icon(
-              Icons.calendar_today,
-              color: AppColor.white,
-            ),
-            label: Trans.of(context).t("vacationTypeRadioButton"),
-            labelStyle: TS.medBlack10,
-            onTap: () {
-              // Get.toNamed(AppStrings.vacationRequestScreenId,
-              //     arguments: AppStrings.vacationTypeRadioButton);
-            }),
-        SpeedDialChild(
-            backgroundColor: AppColor.primary,
-            child: Icon(
-              Icons.work,
-              color: AppColor.white,
-            ),
-            label: Trans.of(context).t("workOutDoorTypeRadioButton"),
-            labelStyle: TS.medBlack10,
-            onTap: () {
-              // Get.toNamed(AppStrings.vacationRequestScreenId,
-              //     arguments: AppStrings.workOutDoorTypeRadioButton);
-            }),
-        SpeedDialChild(
-            backgroundColor: AppColor.primary,
-            child: Icon(
-              Icons.access_time,
-              color: AppColor.white,
-            ),
-            label: Trans.of(context).t("excuseTypeRadioButton"),
-            labelStyle: TS.medBlack10,
-            onTap: () {
-              // Get.toNamed(AppStrings.vacationRequestScreenId,
-              //     arguments: AppStrings.excuseTypeRadioButton);
-            }),
-      ],
-    );
-  }
 
   Widget notificationIcon(IconData icon, String text) {
     return Stack(
@@ -311,3 +232,81 @@ class _MainScreenState extends ResumableState<MainScreen> {
 }
 
 // BorderRadius.all(Radius.circular(40))
+// Widget floatButton() {
+//   return SpeedDial(
+//     backgroundColor: AppColor.primary,
+//     childMargin: EdgeInsets.fromLTRB(
+//         0, 0, MediaQuery.of(context).size.width * 0.475, 50),
+//     child: Container(
+//       height: 70,
+//       width: 70,
+//       decoration: BoxDecoration(
+//         shape: BoxShape.circle,
+//         border: Border.all(width: 3.0, color: Colors.white),
+//       ),
+//       child: Icon(
+//         Icons.add,
+//         size: 28.0,
+//         color: AppColor.white,
+//       ),
+//     ),
+//     closeManually: false,
+//     curve: Curves.bounceInOut,
+//     overlayColor: Colors.black,
+//     overlayOpacity: 0.5,
+//     elevation: 8.0,
+//     shape: const CircleBorder(),
+//     children: [
+//       (null != company && (company?.CompCode ?? "").startsWith("2"))
+//           ? SpeedDialChild(
+//               backgroundColor: AppColor.primary,
+//               child: Icon(
+//                 Icons.account_balance_wallet_rounded,
+//                 color: AppColor.white,
+//               ),
+//               label: Trans.of(context).t("saleOrderText"),
+//               labelStyle: TS.medBlack10,
+//               onTap: () {
+//                 // Get.toNamed(AppStrings.addSaleOrderScreenId);
+//               })
+//           : SpeedDialChild(
+//               backgroundColor: Colors.transparent, child: Center()),
+//       SpeedDialChild(
+//           backgroundColor: AppColor.primary,
+//           child: Icon(
+//             Icons.calendar_today,
+//             color: AppColor.white,
+//           ),
+//           label: Trans.of(context).t("vacationTypeRadioButton"),
+//           labelStyle: TS.medBlack10,
+//           onTap: () {
+//             // Get.toNamed(AppStrings.vacationRequestScreenId,
+//             //     arguments: AppStrings.vacationTypeRadioButton);
+//           }),
+//       SpeedDialChild(
+//           backgroundColor: AppColor.primary,
+//           child: Icon(
+//             Icons.work,
+//             color: AppColor.white,
+//           ),
+//           label: Trans.of(context).t("workOutDoorTypeRadioButton"),
+//           labelStyle: TS.medBlack10,
+//           onTap: () {
+//             // Get.toNamed(AppStrings.vacationRequestScreenId,
+//             //     arguments: AppStrings.workOutDoorTypeRadioButton);
+//           }),
+//       SpeedDialChild(
+//           backgroundColor: AppColor.primary,
+//           child: Icon(
+//             Icons.access_time,
+//             color: AppColor.white,
+//           ),
+//           label: Trans.of(context).t("excuseTypeRadioButton"),
+//           labelStyle: TS.medBlack10,
+//           onTap: () {
+//             // Get.toNamed(AppStrings.vacationRequestScreenId,
+//             //     arguments: AppStrings.excuseTypeRadioButton);
+//           }),
+//     ],
+//   );
+// }

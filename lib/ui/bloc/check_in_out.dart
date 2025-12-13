@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:sky_vacation/base/base_bloc.dart';
@@ -18,7 +17,7 @@ class CheckInOutBloc extends BaseBloc<Result<int>> {
 
   
     
-     FToast? fToast;
+     // FToast? fToast;
 
     
   Future<void> create(

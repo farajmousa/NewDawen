@@ -51,7 +51,7 @@ class StateScreen extends State<MyImagePicker> {
 
                   onPressed: () async {
                     final pickedFile =
-                    await picker.getImage(source: ImageSource.camera , maxHeight:  200 , maxWidth: 200 , imageQuality: 60);
+                    await picker.pickImage(source: ImageSource.camera , maxHeight:  200 , maxWidth: 200 , imageQuality: 60);
 
                       if (pickedFile != null) {
                         var file = File(pickedFile.path);

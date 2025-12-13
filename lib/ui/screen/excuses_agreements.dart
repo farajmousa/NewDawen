@@ -11,7 +11,7 @@ import '../../helper/app_asset.dart';
 import '../../helper/app_color.dart';
 import 'package:sky_vacation/helper/localize.dart';
 import 'package:sky_vacation/ui/bloc/holiday_agreement_action.dart';
-import 'package:sky_vacation/ui/components/reject_reason_sheet.dart';
+import 'package:sky_vacation/ui/components/sheet/reject_reason_sheet.dart';
 import '../../main.dart';
 import '../bloc/excuse_list_agreements.dart';
 import '../components/excuse_agreement_list_view_vertical.dart';

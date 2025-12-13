@@ -1,22 +1,17 @@
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:sky_vacation/helper/app_asset.dart';
 import 'package:sky_vacation/helper/app_decoration.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'dart:math' as math;
-import 'package:sizer/sizer.dart';
 import 'package:sky_vacation/helper/app_color.dart';
 import 'package:sky_vacation/helper/app_constant.dart';
 import 'package:sky_vacation/helper/dim.dart';
 import 'package:sky_vacation/helper/font_style.dart';
 import 'package:sky_vacation/helper/localize.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sky_vacation/ui/widgets/app_image.dart';
-
 import '../../main.dart';
 import 'app_button.dart';
-import 'app_svg.dart';
+
 
 class Components {
   void handleApiError(BuildContext context, {String? error, String? img}) {
@@ -273,31 +268,31 @@ class Components {
     );
   }
 
-  void showToastedd(String msg) => Fluttertoast.showToast(
-        msg: msg,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 20,
-        backgroundColor: Colors.green,
-        toastLength: Toast.LENGTH_LONG,
-      );
-
-  // FToast? fToast;
-  showCustomToast(BuildContext context, String msg) {
-    FToast fToast = FToast();
-    fToast.init(context);
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.greenAccent,
-      ),
-      child: Text(msg,style:  TextStyle(fontSize: 18),),
-    );
-
-    fToast.showToast(
-      child: toast,
-      toastDuration: Duration(seconds: 15),
-      gravity: ToastGravity.TOP
-    );
-  }
+  // void showToastedd(String msg) => Fluttertoast.showToast(
+  //       msg: msg,
+  //       gravity: ToastGravity.TOP,
+  //       timeInSecForIosWeb: 20,
+  //       backgroundColor: Colors.green,
+  //       toastLength: Toast.LENGTH_LONG,
+  //     );
+  //
+  // // FToast? fToast;
+  // showCustomToast(BuildContext context, String msg) {
+  //   FToast fToast = FToast();
+  //   fToast.init(context);
+  //   Widget toast = Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(25.0),
+  //       color: Colors.greenAccent,
+  //     ),
+  //     child: Text(msg,style:  TextStyle(fontSize: 18),),
+  //   );
+  //
+  //   fToast.showToast(
+  //     child: toast,
+  //     toastDuration: Duration(seconds: 15),
+  //     gravity: ToastGravity.TOP
+  //   );
+  // }
 }

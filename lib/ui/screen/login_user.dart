@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:need_resume/need_resume.dart';
 import 'package:sky_vacation/base/result.dart';
 import 'package:sky_vacation/di/injection_container.dart';
 import 'package:sky_vacation/helper/app_color.dart';
 import 'package:sky_vacation/helper/app_route.dart';
+import 'package:sky_vacation/helper/app_util.dart';
 import 'package:sky_vacation/helper/dim.dart';
 import 'package:sky_vacation/helper/font_style.dart';
 import 'package:sky_vacation/main.dart';
@@ -15,7 +14,6 @@ import 'package:sky_vacation/helper/localize.dart';
 import 'package:sky_vacation/ui/widgets/app_button.dart';
 import 'package:sky_vacation/ui/widgets/app_image.dart';
 import 'package:sky_vacation/ui/widgets/separator.dart';
-
 import '../../helper/app_asset.dart';
 import '../../helper/app_decoration.dart';
 
@@ -48,7 +46,7 @@ class _LoginUserScreenState extends ResumableState<LoginUserScreen> {
 
   showAlertDialog(BuildContext context) {
     // set up the button
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text(Trans.of(context).t("ok")),
       onPressed: () {
         Navigator.of(context).pop();
@@ -303,7 +301,7 @@ class _LoginUserScreenState extends ResumableState<LoginUserScreen> {
     if (result is SuccessResult) {
       if (null == result.getSuccessData()) return;
       Navigator.of(context).pushNamed(AppRoute.main);
-      showToasted(Trans.of(context).t("loginsuccess"));
+      AppUtil.viewToast(context,content: Trans.of(context).t("loginsuccess"));
       //  comp.displayToast(context,
       //                     Trans.of(context).t("loginsuccess"));
     } else if (result is ErrorResult) {
@@ -314,11 +312,11 @@ class _LoginUserScreenState extends ResumableState<LoginUserScreen> {
     }
   }
 
-  void showToasted(String msg) => Fluttertoast.showToast(
-        msg: msg,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 10,
-        backgroundColor: Colors.green,
-        toastLength: Toast.LENGTH_LONG,
-      );
+  // void showToasted(String msg) => Fluttertoast.showToast(
+  //       msg: msg,
+  //       gravity: ToastGravity.TOP,
+  //       timeInSecForIosWeb: 10,
+  //       backgroundColor: Colors.green,
+  //       toastLength: Toast.LENGTH_LONG,
+  //     );
 }
