@@ -1,14 +1,14 @@
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:sky_vacation/helper/app_asset.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
+import 'package:dawim/helper/app_asset.dart';
+import 'package:dawim/helper/app_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'dart:math' as math;
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/app_constant.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/helper/localize.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/app_constant.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/helper/localize.dart';
 import '../../main.dart';
 import 'app_button.dart';
 
@@ -211,24 +211,23 @@ class Components {
       preferredSize: Size.fromHeight(Dim.h8),
       // here the desired height
       child: AppBar(
-          // backgroundColor: Colors.transparent,
           centerTitle: true,
           elevation: 0,
           leading: (showBack ?? true)
               ? IconButton(
-                  padding: EdgeInsets.all(Dim.w3),
+                  padding: EdgeInsets.all(Dim.h1_5),
                   icon: const Icon(Icons.arrow_back_ios_rounded, color: AppColor.white,),
-                  iconSize: Dim.w6,
+                  iconSize: Dim.h3,
                   onPressed: backTapped,
                 )
               : Center(),
           title: Container(
-            margin: EdgeInsets.symmetric(vertical: Dim.h4),
-            padding: EdgeInsets.symmetric(vertical: Dim.h4),
+            // margin: EdgeInsets.only(top: Dim.h4),
+            padding: EdgeInsets.only(top: Dim.h2),
             child: Text(
               title,
               textAlign: TextAlign.center,
-              style: TS.medWhite12,
+              style: TS.medWhite10,
             ),
           ),
 
@@ -238,35 +237,40 @@ class Components {
 
   Widget appBarText(String title) {
     return Text(
-      "$title",
+      title,
       style: TS.medWhite8,
     );
   }
 
-  Widget notFoundWidget(BuildContext context, {double marginTop = 0}) {
-    return Container(
-      alignment: Alignment.center,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: Dim.h10,
-            ),
+  Widget notFoundWidget(BuildContext context, {double marginTop = 0,
+  bool isExpanded = false}) {
+    Widget content =  SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: Dim.h10,
+          ),
 
-            Image.asset(AppAsset.noResults), //noResults
-            SizedBox(
-              height: Dim.h4,
-            ),
-            Text(
-              Trans.of(context).t("codeNotFound"),
-              style: TS.medGrayDark12,
-            ),
-          ],
-        ),
+          Image.asset(AppAsset.noResults), //noResults
+          SizedBox(
+            height: Dim.h4,
+          ),
+          Text(
+            Trans.of(context).t("codeNotFound"),
+            style: TS.medGrayDark12,
+          ),
+        ],
       ),
     );
+    return isExpanded? Expanded(
+      child: content,
+    ):  Container(
+      alignment: Alignment.center,
+      child: content,
+    );
   }
+
 
   // void showToastedd(String msg) => Fluttertoast.showToast(
   //       msg: msg,

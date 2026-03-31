@@ -1,9 +1,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
 
 class ErrorLabel extends StatelessWidget {
   final String? msg;

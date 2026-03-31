@@ -1,12 +1,12 @@
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/main.dart';
-import 'package:sky_vacation/ui/widgets/app_button.dart';
-import 'package:sky_vacation/ui/widgets/header.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/app_decoration.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/main.dart';
+import 'package:dawim/ui/widgets/app_button.dart';
+import 'package:dawim/ui/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 import '../../../helper/user_constant.dart';
@@ -79,7 +79,7 @@ void changeLanguageSheet(BuildContext context) {
                         width: Dim.w32,
                         bkgColor: AppColor.primary,
                         height: Dim.sheetBtnHeight,
-                        titleSize: Dim.s8,
+                        titleSize: Dim.s12,
                         title: Trans.of(context).t("save"),
                         titleColor: AppColor.white,
                         onTap: () {
@@ -94,7 +94,7 @@ void changeLanguageSheet(BuildContext context) {
                       AppButton(
                         width: Dim.w32,
                         height: Dim.sheetBtnHeight,
-                        titleSize: Dim.s8,
+                        titleSize: Dim.s12,
                         bkgColor: AppColor.red,
                         borderColor: AppColor.red,
                         titleColor: AppColor.white,

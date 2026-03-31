@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:sky_vacation/base/result.dart';
-import 'package:sky_vacation/data/api/api_urls.dart';
-import 'package:sky_vacation/data/model/entity/id_name.dart';
-import 'package:sky_vacation/di/injection_container.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
-import 'package:sky_vacation/helper/app_route.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/main.dart';
-import 'package:sky_vacation/data/model/entity/company.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/ui/bloc/direstors.dart';
-import 'package:sky_vacation/ui/widgets/app_image.dart';
+import 'package:dawim/base/result.dart';
+import 'package:dawim/data/api/api_urls.dart';
+import 'package:dawim/data/model/entity/id_name.dart';
+import 'package:dawim/di/injection_container.dart';
+import 'package:dawim/helper/app_decoration.dart';
+import 'package:dawim/helper/app_route.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/main.dart';
+import 'package:dawim/data/model/entity/company.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/ui/bloc/direstors.dart';
+import 'package:dawim/ui/widgets/app_image.dart';
+import 'package:sizer/sizer.dart';
 import '../../helper/app_asset.dart';
 import '../../helper/app_color.dart';
 import '../bloc/send_fcm_token.dart';
@@ -95,7 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       "${Trans.of(context).t("hi")}  ${sm.getUser()?.name ?? ""}",
-                      style: TS.textStyle(color: AppColor.white, size: Dim.s11, weight: FontWeight.w600),
+                      style: TS.textStyle(color: AppColor.white,
+                          size: Dim.s13, weight: FontWeight.w700),
                     ),
                     SizedBox(height: Dim.h_8,),
                     Text(
@@ -123,10 +125,12 @@ class _HomeScreenState extends State<HomeScreen> {
       width:MediaQuery.of(context).size.width,
       height:MediaQuery.of(context).size.height - 210,
       child: GridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: Dim.w3,
-        mainAxisSpacing: Dim.w3,
-        padding: EdgeInsets.symmetric(horizontal: Dim.w3, vertical: Dim.h2),
+        crossAxisCount: (Device.screenType == ScreenType.tablet ||
+            Device.width > 600 ||
+            Device.orientation == Orientation.landscape ? 3 : 2),
+        crossAxisSpacing: Dim.h1_5,
+        mainAxisSpacing: Dim.h1_5,
+        padding: EdgeInsets.symmetric(horizontal: Dim.h1_5, vertical: Dim.h2),
 
         primary: false,
         children: [
@@ -166,24 +170,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget item(String mainIcon ,String title, Color color , Function() onTap ,{ int notificationNum = 0}) {
+  Widget item(String mainIcon ,String title, Color color , Function() onTap ,
+      { int notificationNum = 0}) {
     return InkWell(
       onTap: onTap,
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(Dim.w4, Dim.h3, Dim.w4, 0),
+            padding: EdgeInsets.fromLTRB(Dim.h2, Dim.h2, Dim.w2, 0),
             // margin: EdgeInsets.symmetric( vertical: Dim.h1, horizontal: Dim.h1),
-            decoration: AppDecor.decoration(bkgColor: AppColor.white, borderRadius: Dim.w6),
-            height:200,
+            decoration: AppDecor.decoration(bkgColor: AppColor.white, borderRadius: Dim.h2),
+            // height:200,
             child: Column(
               children: [
 
                 CircleAvatar(
                   backgroundColor: color,
-                  radius:  Dim.h5,
-                  child:   Image.asset(mainIcon ,  width: Dim.h5,
-                    height: Dim.h5, color: AppColor.white,),
+                  radius:  Dim.h4,
+                  child:   Image.asset(mainIcon ,  width: Dim.h4,
+                    height: Dim.h4, color: AppColor.white,),
                 ),
                SizedBox(height: Dim.h1,),
                Center(
@@ -197,15 +202,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           if(notificationNum > 0) Positioned(
-            right: 0,
-            top: 0,
+            right: Dim.h2,
+            top: Dim.h2,
             child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(40)),
+                borderRadius: BorderRadius.all(Radius.circular(Dim.h2)),
                 child: Container(
-                    width: Dim.w6,
-                    height: Dim.w6,
+                    width: Dim.h3,
+                    height: Dim.h3,
                     color: AppColor.red,
-                    child: Center(child: Text(notificationNum.toString() , style: TS.textStyle(color: Colors.white ,  size: Dim.s9, weight: FontWeight.bold), )))),
+                    child: Center(child: Text(notificationNum.toString() , style: TS.textStyle(color: Colors.white ,  size: Dim.s10, weight: FontWeight.bold), )))),
           ),
         ],
       ),

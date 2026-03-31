@@ -1,6 +1,6 @@
 // import 'package:flutter/material.dart';
-// import 'package:sky_vacation/helper/font_style.dart';
-// import 'package:sky_vacation/helper/localize.dart';
+// import 'package:dawim/helper/font_style.dart';
+// import 'package:dawim/helper/localize.dart';
 //
 // class TimeTable extends StatelessWidget {
 //   Function()? increaseMinutes, decreaseMinutes;

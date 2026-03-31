@@ -1,17 +1,17 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:need_resume/need_resume.dart';
-import 'package:sky_vacation/data/model/entity/location_data.dart';
-import 'package:sky_vacation/helper/app_asset.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/main.dart';
-import 'package:sky_vacation/data/model/entity/user.dart';
-import 'package:sky_vacation/ui/bloc/check_in_out.dart';
-import 'package:sky_vacation/ui/widgets/separator.dart';
+import 'package:dawim/data/model/entity/location_data.dart';
+import 'package:dawim/helper/app_asset.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/main.dart';
+import 'package:dawim/data/model/entity/user.dart';
+import 'package:dawim/ui/bloc/check_in_out.dart';
+import 'package:dawim/ui/widgets/separator.dart';
 import '../../helper/app_color.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/ui/widgets/app_drop_down.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/ui/widgets/app_drop_down.dart';
 import '../../base/result.dart';
 import '../../di/injection_container.dart';
 import '../../helper/app_constant.dart';
@@ -92,7 +92,7 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
         child:  Container(
           margin: EdgeInsets.fromLTRB(Dim.w5, Dim.h3, Dim.w5, Dim.h4),
           padding: EdgeInsets.fromLTRB(Dim.w6, Dim.w4, Dim.w6, Dim.w4),
-          decoration: AppDecor.decoration(bkgColor: AppColor.bkg, borderRadius: Dim.w5),
+          decoration: AppDecor.decoration(bkgColor: AppColor.bkg, borderRadius: Dim.h2),
           child:
           ListView(
             padding: EdgeInsets.zero,
@@ -136,7 +136,7 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
               RoundedButton(
                 icon: Icons.check,
                 verticalMargin: Dim.h1,
-                fontSize: Dim.s10,
+                fontSize: Dim.s13,
                 onPressed: () {
                   appLog("Camera file: $imageFile");
                   if(!isLoading) {
@@ -171,7 +171,7 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
               RoundedButton(
                 icon: Icons.history,
                 verticalMargin: Dim.h1,
-                fontSize: Dim.s10,
+                fontSize: Dim.s13,
                 onPressed: () {
                   appLog("Camera file: $imageFile");
                   if(!isLoading) {
@@ -204,7 +204,7 @@ class _CheckInOutScreenState extends ResumableState<CheckInOutScreen> {
               RoundedButton(
                 icon: Icons.close,
                 verticalMargin: Dim.h1,
-                fontSize: Dim.s10,
+                fontSize: Dim.s13,
                 onPressed: () {
                   if(!isLoading) {
                     if (selectedLocationIndex > -2) {

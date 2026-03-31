@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sky_vacation/helper/dim.dart';
+import 'package:dawim/helper/dim.dart';
 
 import '../../helper/app_color.dart';
 import '../../helper/font_style.dart';
@@ -56,7 +56,7 @@ class SeparatorTitle extends StatelessWidget {
         ),
         Text(
           title ?? "",
-          style: TS.medBlack12,
+          style: TS.regularBlack10,
         ),
         SizedBox(
           width: Dim.w4,

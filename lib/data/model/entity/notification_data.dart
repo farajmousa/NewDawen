@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:sky_vacation/main.dart';
-import 'package:sky_vacation/helper/app_util.dart';
+import 'package:dawim/main.dart';
+import 'package:dawim/helper/app_util.dart';
 
 import '../../../helper/app_constant.dart';
 

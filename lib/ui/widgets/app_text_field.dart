@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:sizer/sizer.dart';
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
 
 class AppTextField extends StatefulWidget {
   final String? hint;
@@ -115,7 +115,7 @@ class _ScreenState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = SizerUtil.deviceType == DeviceType.mobile;
+    bool isMobile = Device.screenType == ScreenType.mobile;
     double vpad = widget.paddingVertical ?? (isMobile ? Dim.h2 : 1.5.h);
 
     return Container(
@@ -169,7 +169,7 @@ class _ScreenState extends State<AppTextField> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: AppColor.red,
-                        fontSize: Dim.s10),
+                        fontSize: Dim.s12),
                   ),
                 ),
               if (null != widget.suffixIcon)

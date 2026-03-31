@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sky_vacation/base/result.dart';
-import 'package:sky_vacation/di/injection_container.dart';
-import 'package:sky_vacation/helper/app_asset.dart';
-import 'package:sky_vacation/helper/app_route.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/ui/bloc/token.dart';
+import 'package:dawim/base/result.dart';
+import 'package:dawim/di/injection_container.dart';
+import 'package:dawim/helper/app_asset.dart';
+import 'package:dawim/helper/app_route.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/ui/bloc/token.dart';
 import '../../main.dart';
 
 

@@ -1,10 +1,10 @@
-import 'package:sky_vacation/data/model/entity/holiday_agreement_data.dart';
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/ui/widgets/app_button.dart';
+import 'package:dawim/data/model/entity/holiday_agreement_data.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/app_decoration.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/ui/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
 import 'row_item.dart';
@@ -43,7 +43,7 @@ class HolidayAgreementListViewVertical extends StatelessWidget {
     HolidayAgreementData item  = dataList[index] ;
     return Container(
         padding: EdgeInsets.fromLTRB(Dim.w4, Dim.w4, Dim.w4, Dim.w4),
-        decoration: AppDecor.decoration(bkgColor: colorsRandom[index%(colorsRandom.length)].withOpacity(0.1), borderRadius: Dim.w5),
+        decoration: AppDecor.decoration(bkgColor: colorsRandom[index%(colorsRandom.length)].withOpacity(0.1), borderRadius: Dim.h2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -68,7 +68,7 @@ class HolidayAgreementListViewVertical extends StatelessWidget {
                  AppButton(
                   width: Dim.w26,
                   height: Dim.h4,
-                  titleSize: Dim.s7,
+                  titleSize: Dim.s11,
                   radius: Dim.w2,
                   marginHorizontal: Dim.w2,
                   marginVertical: 0,
@@ -82,7 +82,7 @@ class HolidayAgreementListViewVertical extends StatelessWidget {
                   width: Dim.w26,
                   height: Dim.h4,
                   bkgColor: AppColor.red,
-                  titleSize: Dim.s7,
+                  titleSize: Dim.s11,
                   radius: Dim.w2,
                   marginHorizontal: Dim.w2,
                   marginVertical: 0,

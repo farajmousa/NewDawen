@@ -1,9 +1,9 @@
-import 'package:sky_vacation/data/model/entity/notification_data.dart';
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/helper/localize.dart';
+import 'package:dawim/data/model/entity/notification_data.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/app_decoration.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/helper/localize.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
@@ -40,7 +40,7 @@ class NotificationListViewVertical extends StatelessWidget {
     NotificationData item = dataList[index] ;
     return Container(
         padding: EdgeInsets.fromLTRB(Dim.w4, Dim.w4, Dim.w4, Dim.w4),
-        decoration: AppDecor.decoration(bkgColor: colorsRandom[index%(colorsRandom.length)].withOpacity(0.1), borderRadius: Dim.w5),
+        decoration: AppDecor.decoration(bkgColor: colorsRandom[index%(colorsRandom.length)].withOpacity(0.1), borderRadius: Dim.h2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

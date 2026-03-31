@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:need_resume/need_resume.dart';
-import 'package:sky_vacation/data/model/entity/notification_data.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/ui/bloc/notifications.dart';
+import 'package:dawim/data/model/entity/notification_data.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/ui/bloc/notifications.dart';
 import '../../base/result.dart';
 import '../../di/injection_container.dart';
 import '../../helper/app_color.dart';

@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:http/http.dart';
-import 'package:sky_vacation/data/model/entity/user.dart';
-import 'package:sky_vacation/helper/app_asset.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
-import 'package:sky_vacation/helper/app_util.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/ui/bloc/logout.dart';
-import 'package:sky_vacation/ui/components/sheet/change_language_sheet.dart';
-import 'package:sky_vacation/ui/components/sheet/confirmation_msg_sheet.dart';
-import 'package:sky_vacation/ui/widgets/app_button.dart';
-import 'package:sky_vacation/ui/widgets/app_image.dart';
-import 'package:sky_vacation/ui/widgets/separator.dart';
+import 'package:dawim/data/model/entity/user.dart';
+import 'package:dawim/helper/app_asset.dart';
+import 'package:dawim/helper/app_decoration.dart';
+import 'package:dawim/helper/app_util.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/ui/bloc/logout.dart';
+import 'package:dawim/ui/components/sheet/change_language_sheet.dart';
+import 'package:dawim/ui/components/sheet/confirmation_msg_sheet.dart';
+import 'package:dawim/ui/widgets/app_button.dart';
+import 'package:dawim/ui/widgets/app_image.dart';
+import 'package:dawim/ui/widgets/separator.dart';
 import '../../base/result.dart';
 import '../../di/injection_container.dart';
 import '../../helper/app_color.dart';
@@ -86,7 +86,7 @@ class _AccountScreenState extends State<AccountScreen> {
               padding:
                   EdgeInsets.symmetric(horizontal: Dim.w6, vertical: Dim.w6),
               decoration: AppDecor.decoration(
-                  bkgColor: AppColor.bkg, borderRadius: Dim.w4, ),
+                  bkgColor: AppColor.bkg, borderRadius: Dim.h2, ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -99,7 +99,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           decoration: AppDecor.decoration(
                               bkgColor: AppColor.accentDark.withOpacity(0.1),
                               borderWidth: 1,
-                              borderRadius: Dim.w3),
+                              borderRadius: Dim.h2),
                           child: AppImage(
                             img: "${widget.currentUser?.image}",
                             width: Dim.w16,
@@ -134,7 +134,7 @@ class _AccountScreenState extends State<AccountScreen> {
               padding:
               EdgeInsets.symmetric(horizontal: Dim.w6, vertical: Dim.h3),
               decoration: AppDecor.decoration(
-                bkgColor: AppColor.bkg, borderRadius: Dim.w4, ),
+                bkgColor: AppColor.bkg, borderRadius: Dim.h2, ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -163,7 +163,7 @@ class _AccountScreenState extends State<AccountScreen> {
               padding:
                   EdgeInsets.symmetric(horizontal: Dim.w6, vertical: Dim.h2),
               decoration: AppDecor.decoration(
-                  bkgColor: AppColor.bkg, borderRadius: Dim.w4),
+                  bkgColor: AppColor.bkg, borderRadius: Dim.h2),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,

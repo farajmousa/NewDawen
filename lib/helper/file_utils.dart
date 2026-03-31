@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:sky_vacation/helper/app_util.dart';
+import 'package:dawim/helper/app_util.dart';
 
 class AppFile{
   static Future<File> getLocalFile(String fileName) async {

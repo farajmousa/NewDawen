@@ -1,4 +1,4 @@
-import 'package:sky_vacation/helper/font_style.dart';
+import 'package:dawim/helper/font_style.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 

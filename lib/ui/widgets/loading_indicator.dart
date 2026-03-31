@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sky_vacation/helper/dim.dart';
+import 'package:dawim/helper/dim.dart';
 
 class LoadingIndicator extends StatelessWidget {
   final bool? fullScreen;

@@ -11,11 +11,11 @@ Widget rowItem(String title, String value, {Color? titleCol, Color? valueCol}){
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("$title :",
-          style: TS.textStyle(color: titleCol ?? AppColor.text, size: Dim.s10, weight: FontWeight.w600),
+          style: TS.textStyle(color: titleCol ?? AppColor.text, size: Dim.s12, weight: FontWeight.w600),
         ),
         SizedBox(width: Dim.w2,),
         Expanded(child: Text(value,
-          style: TS.textStyle(color: valueCol ?? AppColor.grayDark, size: Dim.s10, weight: FontWeight.w600),
+          style: TS.textStyle(color: valueCol ?? AppColor.grayDark, size: Dim.s12, weight: FontWeight.w600),
         ))
       ],
     ),

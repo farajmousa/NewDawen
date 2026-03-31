@@ -1,10 +1,10 @@
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/app_constant.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/helper/user_constant.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/app_constant.dart';
+import 'package:dawim/helper/app_decoration.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/helper/user_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -36,12 +36,12 @@ final Color? borderColor;
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: AppDecor.decoration(borderColor: borderColor ?? AppColor.grayLight,borderRadius: Dim.w3),
-      // height: (SizerUtil.deviceType == DeviceType.mobile)? Dim.h6 : null,
+      decoration: AppDecor.decoration(borderColor: borderColor ?? AppColor.grayLight,borderRadius: Dim.h1_5),
+      // height: (Device.screenType == ScreenType.mobile)? Dim.h6 : null,
       width: width,
       margin: EdgeInsets.symmetric(vertical: Dim.h_5),
       padding: EdgeInsets.symmetric(
-          horizontal: Dim.w4, vertical: (SizerUtil.deviceType == DeviceType.mobile)? 0 : Dim.h_5),
+          horizontal: Dim.w4, vertical: (Device.screenType == ScreenType.mobile)? 0 : Dim.h_5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -72,7 +72,7 @@ final Color? borderColor;
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColor.red,
-                    fontSize: Dim.s10)),
+                    fontSize: Dim.s12)),
           ],
         ),
       ),

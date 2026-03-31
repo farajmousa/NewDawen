@@ -1,19 +1,20 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:need_resume/need_resume.dart';
-import 'package:sky_vacation/data/model/entity/company.dart';
-import 'package:sky_vacation/data/model/entity/user.dart';
-import 'package:sky_vacation/helper/app_asset.dart';
-import 'package:sky_vacation/helper/app_route.dart';
-import 'package:sky_vacation/ui/screen/home.dart';
-import 'package:sky_vacation/ui/screen/notification.dart';
-import 'package:sky_vacation/ui/screen/account.dart';
-import 'package:sky_vacation/helper/localize.dart';
+import 'package:dawim/data/model/entity/company.dart';
+import 'package:dawim/data/model/entity/user.dart';
+import 'package:dawim/helper/app_asset.dart';
+import 'package:dawim/helper/app_route.dart';
+import 'package:dawim/ui/screen/home.dart';
+import 'package:dawim/ui/screen/notification.dart';
+import 'package:dawim/ui/screen/account.dart';
+import 'package:dawim/helper/localize.dart';
 import '../../base/result.dart';
 import '../../data/model/entity/notific_counter.dart';
 import '../../di/injection_container.dart';
 import '../../helper/app_color.dart';
 import '../../helper/dim.dart';
+import '../../helper/font_style.dart';
 import '../../main.dart';
 import '../../helper/app_util.dart';
 import '../bloc/home_notification_counter.dart';
@@ -68,6 +69,7 @@ class _MainScreenState extends ResumableState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.primary,
       bottomNavigationBar: bottomNavigationBar,
       body: SafeArea(
         child: Container(
@@ -104,6 +106,8 @@ class _MainScreenState extends ResumableState<MainScreen> {
         selectedItemColor: AppColor.accentDark,
         unselectedItemColor: AppColor.white,
         currentIndex: currentTabIndex,
+        selectedLabelStyle: TS.medWhite10,
+        unselectedLabelStyle: TS.regularBlack8,
         onTap: (index) {
           currentTabIndex = index;
           if (index == 0) {
@@ -180,7 +184,7 @@ class _MainScreenState extends ResumableState<MainScreen> {
                     child: Center(
                         child: Text(
                       text,
-                      style: const TextStyle(color: Colors.white, fontSize: 10),
+                      style: TS.textStyle(color: Colors.white, size: Dim.s11),
                     ))),
               )
             : SizedBox(),

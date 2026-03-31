@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:need_resume/need_resume.dart';
-import 'package:sky_vacation/base/result.dart';
-import 'package:sky_vacation/di/injection_container.dart';
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/app_route.dart';
-import 'package:sky_vacation/helper/app_util.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/main.dart';
-import 'package:sky_vacation/ui/bloc/login.dart';
-import 'package:sky_vacation/ui/components/rounded_button.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/ui/widgets/app_button.dart';
-import 'package:sky_vacation/ui/widgets/app_image.dart';
-import 'package:sky_vacation/ui/widgets/separator.dart';
+import 'package:dawim/base/result.dart';
+import 'package:dawim/di/injection_container.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/app_route.dart';
+import 'package:dawim/helper/app_util.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/main.dart';
+import 'package:dawim/ui/bloc/login.dart';
+import 'package:dawim/ui/components/rounded_button.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/ui/widgets/app_button.dart';
+import 'package:dawim/ui/widgets/app_image.dart';
+import 'package:dawim/ui/widgets/separator.dart';
 import '../../helper/app_asset.dart';
 import '../../helper/app_decoration.dart';
 
@@ -109,7 +109,7 @@ class _LoginUserScreenState extends ResumableState<LoginUserScreen> {
             padding: EdgeInsets.symmetric(horizontal: Dim.w6, vertical: Dim.h4),
             margin: EdgeInsets.symmetric(horizontal: Dim.w6, vertical: Dim.h3),
             decoration: AppDecor.decoration(
-                bkgColor: AppColor.bkg, borderRadius: Dim.w6),
+                bkgColor: AppColor.bkg, borderRadius: Dim.h3),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -136,7 +136,7 @@ class _LoginUserScreenState extends ResumableState<LoginUserScreen> {
                       children: <Widget>[
                         Text(
                           "${Trans.of(context).t("welcome_to")}:  ${sm.getCompany()?.CompName}",
-                          style: TS.boldPrimary13,
+                          style: TS.boldPrimary10,
                         ),
                         SizedBox(
                           height: Dim.h3,
@@ -280,7 +280,7 @@ class _LoginUserScreenState extends ResumableState<LoginUserScreen> {
                           margin: EdgeInsets.only(top: Dim.h3, bottom: Dim.h3 ),
                           child: Text(
                             '$appVersion',
-                            style: TS.medPrimary12,
+                            style: TS.regularBlack8,
                           ),),
                       ],
                     ),

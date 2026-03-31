@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
+import 'package:dawim/helper/app_decoration.dart';
 import 'package:flutter/material.dart';
-import 'package:sky_vacation/helper/app_asset.dart';
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/ui/widgets/loading_indicator.dart';
+import 'package:dawim/helper/app_asset.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/ui/widgets/loading_indicator.dart';
 import 'dart:math';
 
 class AppImage extends StatelessWidget {

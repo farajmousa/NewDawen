@@ -1,8 +1,8 @@
-import 'package:sky_vacation/helper/dim.dart';
+import 'package:dawim/helper/dim.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:sky_vacation/helper/app_color.dart';
+import 'package:dawim/helper/app_color.dart';
 
 class SliderIndicators extends StatelessWidget {
   final int count;

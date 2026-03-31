@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:platform_device_id/platform_device_id.dart';
-import 'package:sky_vacation/base/base_bloc.dart';
-import 'package:sky_vacation/base/base_exception.dart';
-import 'package:sky_vacation/base/result.dart';
-import 'package:sky_vacation/data/api/api_method.dart';
-import 'package:sky_vacation/data/api/api_repo.dart';
-import 'package:sky_vacation/data/api/api_urls.dart';
+import 'package:platform_device_id_plus/platform_device_id.dart';
+import 'package:dawim/base/base_bloc.dart';
+import 'package:dawim/base/base_exception.dart';
+import 'package:dawim/base/result.dart';
+import 'package:dawim/data/api/api_method.dart';
+import 'package:dawim/data/api/api_repo.dart';
+import 'package:dawim/data/api/api_urls.dart';
 import '../../main.dart';
-import 'package:sky_vacation/helper/app_util.dart';
+import 'package:dawim/helper/app_util.dart';
 
 class CheckInOutBloc extends BaseBloc<Result<int>> {
   ApiRepo repository;

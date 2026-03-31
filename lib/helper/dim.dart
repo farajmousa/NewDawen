@@ -81,6 +81,7 @@ class Dim {
   static final double s20 = 20.0.sp;
   static final double s19 = 19.0.sp;
   static final double s18 = 18.0.sp;
+  static final double s17 = 17.0.sp;
   static final double s16 = 16.0.sp;
   static final double s15 = 15.0.sp;
   static final double s14 = 14.0.sp;
@@ -105,7 +106,7 @@ class Dim {
   static final double h_8 = 0.8.h;
   static final double h3_5 = 3.5.h;
   static final EdgeInsets padTableRow = EdgeInsets.symmetric(horizontal: Dim.w1, vertical: Dim.h1);
-  static double sheetBtnHeight = (SizerUtil.deviceType == DeviceType.mobile)? Dim.h5: Dim.h6;
+  static double sheetBtnHeight = (Device.screenType == ScreenType.mobile)? Dim.h5: Dim.h6;
   static final double topMargin = 5.h;
   static final EdgeInsets mainPadding = EdgeInsets.fromLTRB(Dim.w4, topMargin, Dim.w4, Dim.w4) ;
 

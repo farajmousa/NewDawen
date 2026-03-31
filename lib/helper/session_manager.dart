@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sky_vacation/data/model/entity/company.dart';
-import 'package:sky_vacation/data/model/entity/user.dart';
-import 'package:sky_vacation/helper/user_constant.dart';
+import 'package:dawim/data/model/entity/company.dart';
+import 'package:dawim/data/model/entity/user.dart';
+import 'package:dawim/helper/user_constant.dart';
 
 import '../main.dart';
 

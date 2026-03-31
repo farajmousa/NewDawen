@@ -48,11 +48,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 initLocaleNotification() {
   var initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
-  var initializationSettingsIOS = IOSInitializationSettings();
+  var initializationSettingsIOS = DarwinInitializationSettings();
   var initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
   flutterLocalNotificationsPlugin.initialize(
-    initializationSettings,
+    settings: initializationSettings,
   ); //onSelectNotification: onSelectNotification
 
   firebaseMessaging?.getToken().then((String? token) {
@@ -87,16 +87,17 @@ Future<void> _displayLocalNotification(String title, String body) async {
           channelShowBadge: true,
           ticker: 'ticker');
 
-  var iOSChannelSpecifics = IOSNotificationDetails();
-  const MacOSNotificationDetails macOSPlatformChannelSpecifics =
-      MacOSNotificationDetails(subtitle: 'the subtitle');
+  var iOSChannelSpecifics = DarwinNotificationDetails();
+  const DarwinNotificationDetails macOSPlatformChannelSpecifics =
+  DarwinNotificationDetails(subtitle: 'the subtitle');
   var platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iOSChannelSpecifics,
       macOS: macOSPlatformChannelSpecifics);
 
   await flutterLocalNotificationsPlugin
-      .show(10001, title, body, platformChannelSpecifics, payload: 'test');
+      .show(id: 10001, title: title, body: body,
+      notificationDetails:platformChannelSpecifics, payload: 'test');
   var androidNotificationChannel = AndroidNotificationChannel(
     "10001",
     title,

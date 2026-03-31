@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:sky_vacation/base/base_bloc.dart';
-import 'package:sky_vacation/base/result.dart';
-import 'package:sky_vacation/data/api/api_repo.dart';
-import 'package:sky_vacation/data/model/entity/notification_data.dart';
+import 'package:dawim/base/base_bloc.dart';
+import 'package:dawim/base/result.dart';
+import 'package:dawim/data/api/api_repo.dart';
+import 'package:dawim/data/model/entity/notification_data.dart';
 import '../../base/base_exception.dart';
 import '../../data/api/api_method.dart';
 import '../../data/api/api_urls.dart';

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../helper/app_color.dart';
-import 'package:sky_vacation/helper/font_style.dart';
+import 'package:dawim/helper/font_style.dart';
 import '../../helper/dim.dart';
 import 'loading.dart';
 

@@ -1,28 +1,28 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:need_resume/need_resume.dart';
-import 'package:sky_vacation/base/result.dart';
-import 'package:sky_vacation/data/api/api_urls.dart';
-import 'package:sky_vacation/data/model/entity/holiday_data.dart';
-import 'package:sky_vacation/di/injection_container.dart';
-import 'package:sky_vacation/data/model/entity/id_name.dart';
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
+import 'package:dawim/base/result.dart';
+import 'package:dawim/data/api/api_urls.dart';
+import 'package:dawim/data/model/entity/holiday_data.dart';
+import 'package:dawim/di/injection_container.dart';
+import 'package:dawim/data/model/entity/id_name.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/app_decoration.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
 import '../../helper/app_asset.dart';
 import '../../helper/app_color.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/ui/bloc/holiday.dart';
-import 'package:sky_vacation/ui/bloc/holiday_create.dart';
-import 'package:sky_vacation/ui/bloc/holiday_delete.dart';
-import 'package:sky_vacation/ui/bloc/holiday_list.dart';
-import 'package:sky_vacation/ui/bloc/holiday_type.dart';
-import 'package:sky_vacation/ui/components/holiday_list_view_vertical.dart';
-import 'package:sky_vacation/ui/screen/home.dart';
-import 'package:sky_vacation/ui/widgets/app_button.dart';
-import 'package:sky_vacation/ui/widgets/app_drop_down.dart';
-import 'package:sky_vacation/ui/widgets/app_text_field.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/ui/bloc/holiday.dart';
+import 'package:dawim/ui/bloc/holiday_create.dart';
+import 'package:dawim/ui/bloc/holiday_delete.dart';
+import 'package:dawim/ui/bloc/holiday_list.dart';
+import 'package:dawim/ui/bloc/holiday_type.dart';
+import 'package:dawim/ui/components/holiday_list_view_vertical.dart';
+import 'package:dawim/ui/screen/home.dart';
+import 'package:dawim/ui/widgets/app_button.dart';
+import 'package:dawim/ui/widgets/app_drop_down.dart';
+import 'package:dawim/ui/widgets/app_text_field.dart';
 import '../../main.dart';
 import 'package:collection/collection.dart';
 import '../widgets/loading_indicator.dart'; // You have to add this manually, for some reason it cannot be added automatically
@@ -131,7 +131,8 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
                      },
                    ),),
 
-                  if(noResults) comp.notFoundWidget(context)
+                  if(noResults) comp.notFoundWidget(context,
+                  isExpanded: true)
                 ],
               ),
             ),
@@ -149,7 +150,7 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
       decoration: AppDecor.decoration(
           borderColor: AppColor.accentDark,
           bkgColor: AppColor.accentDark.withOpacity(0.07),
-          borderRadius: Dim.w5, isShadow: false),
+          borderRadius: Dim.h2, isShadow: false),
 
       child: ExpandablePanel(
         controller: expandableController,
@@ -159,123 +160,126 @@ class _HolidayScreenState extends ResumableState<HolidayScreen> {
           style: TS.boldBlack11,
         ),
         collapsed: Center(),
-        expanded: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              height: Dim.h1,
-            ),
-            dateWidget(context, _selectedDate, (DateTime? date) {
-              _selectedDate = date;
-              refresh();
-            }),
-            AppDropDown(
-              hint: 'select_type',
-              items: typeHolidayList,
-              borderColor: AppColor.white,
-              selectedItem: selectedType,
-              onItemChanged: (dynamic? newValue) {
-                setState(() {
-                  selectedType = newValue as IdName;
-                });
-              },
-              onDeleteTapped: () {
-                setState(() {
-                  selectedType = null;
-                });
-              },
-            ),
-            AppTextField(
-              fillColor: AppColor.white,
-              enable: true,
-              hint: Trans.of(context).t('period'),
-              isRequired: true,
-              inputType: TextInputType.number,
-              borderColor: AppColor.white,
-              controller: _periodCont,
-              onValueChanged: (value) {},
-              onValidate: (value) {
-                if ((value ?? "").isEmpty) {
-                  return Trans.of(context).t('empty_field');
-                }
-                return null;
-              },
-            ),
-            AppDropDown(
-              hint: 'head_department',
-              items: headDepartList,
-              borderColor: AppColor.white,
-              selectedItem: selectedHeadDepart,
-              onItemChanged: (dynamic? newValue) {
-                setState(() {
-                  selectedHeadDepart = newValue as IdName;
-                });
-              },
-              onDeleteTapped: () {
-                setState(() {
-                  selectedHeadDepart = null;
-                });
-              },
-            ),
-            AppDropDown(
-              hint: 'director',
-              items: managerList,
-              borderColor: AppColor.white,
-              selectedItem: selectedManager,
-              onItemChanged: (dynamic? newValue) {
-                setState(() {
-                  selectedManager = newValue as IdName;
-                });
-              },
-              onDeleteTapped: () {
-                setState(() {
-                  selectedManager = null;
-                });
-              },
-            ),
-            AppDropDown(
-              hint: 'substitute_employee',
-              items: supportEmployeeList,
-              borderColor: AppColor.white,
-              selectedItem: selectedSupportEmp,
-              onItemChanged: (dynamic? newValue) {
-                setState(() {
-                  selectedSupportEmp = newValue as IdName;
-                });
-              },
-              onDeleteTapped: () {
-                setState(() {
-                  selectedSupportEmp = null;
-                });
-              },
-            ),
-            AppButton(
-              title: Trans.of(context).t("send"),
-              bkgColor: AppColor.accentDark,
-              onTap: () {
-                if(!isLoading) {
-                  if (null != _selectedDate &&
-                      _periodCont.text.isNotEmpty &&
-                      null != selectedHeadDepart &&
-                      null != selectedManager &&
-                      null != selectedSupportEmp &&
-                      null != selectedType) {
-                    _holidayCreateBloc.create(
-                        _selectedDate!,
-                        int.tryParse(_periodCont.text) ?? 0,
-                        selectedManager?.id ?? 0,
-                        selectedHeadDepart?.id ?? 0,
-                        selectedSupportEmp?.id ?? 0,
-                        selectedType?.id ?? 0,
-                        holidayId: isEdit ? selectedHoliday?.id : 0);
-                  } else {
-                    comp.displayDialog(
-                        context, Trans.of(context).t("fill_fields"));
+        expanded: SizedBox(
+          height: Dim.h50,
+          child: ListView(
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: Dim.h1,
+              ),
+              dateWidget(context, _selectedDate, (DateTime? date) {
+                _selectedDate = date;
+                refresh();
+              }),
+              AppDropDown(
+                hint: 'select_type',
+                items: typeHolidayList,
+                borderColor: AppColor.white,
+                selectedItem: selectedType,
+                onItemChanged: (dynamic newValue) {
+                  setState(() {
+                    selectedType = newValue as IdName;
+                  });
+                },
+                onDeleteTapped: () {
+                  setState(() {
+                    selectedType = null;
+                  });
+                },
+              ),
+              AppTextField(
+                fillColor: AppColor.white,
+                enable: true,
+                hint: Trans.of(context).t('period'),
+                isRequired: true,
+                inputType: TextInputType.number,
+                borderColor: AppColor.white,
+                controller: _periodCont,
+                onValueChanged: (value) {},
+                onValidate: (value) {
+                  if ((value ?? "").isEmpty) {
+                    return Trans.of(context).t('empty_field');
                   }
-                }
-              },
-            ),
-          ],
+                  return null;
+                },
+              ),
+              AppDropDown(
+                hint: 'head_department',
+                items: headDepartList,
+                borderColor: AppColor.white,
+                selectedItem: selectedHeadDepart,
+                onItemChanged: (dynamic? newValue) {
+                  setState(() {
+                    selectedHeadDepart = newValue as IdName;
+                  });
+                },
+                onDeleteTapped: () {
+                  setState(() {
+                    selectedHeadDepart = null;
+                  });
+                },
+              ),
+              AppDropDown(
+                hint: 'director',
+                items: managerList,
+                borderColor: AppColor.white,
+                selectedItem: selectedManager,
+                onItemChanged: (dynamic? newValue) {
+                  setState(() {
+                    selectedManager = newValue as IdName;
+                  });
+                },
+                onDeleteTapped: () {
+                  setState(() {
+                    selectedManager = null;
+                  });
+                },
+              ),
+              AppDropDown(
+                hint: 'substitute_employee',
+                items: supportEmployeeList,
+                borderColor: AppColor.white,
+                selectedItem: selectedSupportEmp,
+                onItemChanged: (dynamic? newValue) {
+                  setState(() {
+                    selectedSupportEmp = newValue as IdName;
+                  });
+                },
+                onDeleteTapped: () {
+                  setState(() {
+                    selectedSupportEmp = null;
+                  });
+                },
+              ),
+              AppButton(
+                title: Trans.of(context).t("send"),
+                bkgColor: AppColor.accentDark,
+                onTap: () {
+                  if(!isLoading) {
+                    if (null != _selectedDate &&
+                        _periodCont.text.isNotEmpty &&
+                        null != selectedHeadDepart &&
+                        null != selectedManager &&
+                        null != selectedSupportEmp &&
+                        null != selectedType) {
+                      _holidayCreateBloc.create(
+                          _selectedDate!,
+                          int.tryParse(_periodCont.text) ?? 0,
+                          selectedManager?.id ?? 0,
+                          selectedHeadDepart?.id ?? 0,
+                          selectedSupportEmp?.id ?? 0,
+                          selectedType?.id ?? 0,
+                          holidayId: isEdit ? selectedHoliday?.id : 0);
+                    } else {
+                      comp.displayDialog(
+                          context, Trans.of(context).t("fill_fields"));
+                    }
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

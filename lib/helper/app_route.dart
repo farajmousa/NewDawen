@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:sky_vacation/ui/screen/absents.dart';
-import 'package:sky_vacation/ui/screen/check_in_out.dart';
-import 'package:sky_vacation/ui/screen/excuses_agreements.dart';
-import 'package:sky_vacation/ui/screen/holidays_agreements.dart';
-import 'package:sky_vacation/ui/screen/login_company.dart';
-import 'package:sky_vacation/ui/screen/excuses.dart';
-import 'package:sky_vacation/ui/screen/leaves.dart';
-import 'package:sky_vacation/ui/screen/login_user.dart';
-import 'package:sky_vacation/ui/screen/holidays.dart';
-import 'package:sky_vacation/ui/screen/main.dart';
-import 'package:sky_vacation/ui/screen/offline.dart';
-import 'package:sky_vacation/ui/screen/splash.dart';
+import 'package:dawim/ui/screen/absents.dart';
+import 'package:dawim/ui/screen/check_in_out.dart';
+import 'package:dawim/ui/screen/excuses_agreements.dart';
+import 'package:dawim/ui/screen/holidays_agreements.dart';
+import 'package:dawim/ui/screen/login_company.dart';
+import 'package:dawim/ui/screen/excuses.dart';
+import 'package:dawim/ui/screen/leaves.dart';
+import 'package:dawim/ui/screen/login_user.dart';
+import 'package:dawim/ui/screen/holidays.dart';
+import 'package:dawim/ui/screen/main.dart';
+import 'package:dawim/ui/screen/offline.dart';
+import 'package:dawim/ui/screen/splash.dart';
 
 class AppRoute {
   static Route<dynamic> routes(RouteSettings settings) {

@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:collection/collection.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -18,18 +18,20 @@ import 'package:hijri/hijri_calendar.dart';
 
 class AppUtil {
   static Future<bool> isOnline() async {
-    final ConnectivityResult connectivityResult =
-    await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.mobile) {
-      return true;
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      return true;
-    } else if (connectivityResult == ConnectivityResult.none) {
-      appLog('No Connection');
-      return false;
-    } else {
-      return false;
-    }
+    return true;
+
+    // final List<ConnectivityResult> connectivityResult =
+    // await Connectivity().checkConnectivity();
+    // if (connectivityResult.contains( ConnectivityResult.mobile)) {
+    //   return true;
+    // } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+    //   return true;
+    // } else if (connectivityResult.contains(ConnectivityResult.none)) {
+    //   appLog('No Connection');
+    //   return false;
+    // } else {
+    //   return false;
+    // }
   }
 
 

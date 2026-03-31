@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/ui/widgets/app_button.dart';
-import 'package:sky_vacation/ui/widgets/separator.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/ui/widgets/app_button.dart';
+import 'package:dawim/ui/widgets/separator.dart';
 import 'header.dart';
 
 void logoutDialog(BuildContext context, Function() logoutTapped) {
 
-  double height = (SizerUtil.deviceType == DeviceType.mobile) ? Dim.h4 : Dim.h5;
+  double height = (Device.screenType == ScreenType.mobile) ? Dim.h4 : Dim.h5;
 
   showDialog<bool>(
     context: context,
@@ -44,7 +44,7 @@ void logoutDialog(BuildContext context, Function() logoutTapped) {
                       AppButton(
                         width: Dim.w24,
                         height: height,
-                        titleSize: Dim.s7,
+                        titleSize: Dim.s11,
                         title: Trans.of(context).t("logout"),
                         onTap: logoutTapped,
                       ),
@@ -54,7 +54,7 @@ void logoutDialog(BuildContext context, Function() logoutTapped) {
                       AppButton(
                         width: Dim.w24,
                         height: height,
-                        titleSize: Dim.s7,
+                        titleSize: Dim.s11,
                         bkgColor: AppColor.red,
                         borderColor: AppColor.red,
                         title: Trans.of(context).t("cancel"),

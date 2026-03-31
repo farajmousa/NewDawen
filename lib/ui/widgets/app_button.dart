@@ -1,10 +1,10 @@
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/app_decoration.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:sky_vacation/helper/localize.dart';
+import 'package:dawim/helper/localize.dart';
 import '../../main.dart';
 
 class AppButton extends StatelessWidget {
@@ -78,7 +78,7 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double defaultHeight =
-        (SizerUtil.deviceType == DeviceType.mobile) ? 6.0.h : 7.h;
+        (Device.screenType == ScreenType.mobile) ? 6.0.h : 7.h;
     double _height = height ?? defaultHeight;
     double _radius = Dim.w2; //_height / 2;
 
@@ -134,7 +134,7 @@ class AppButton extends StatelessWidget {
                           RichText(
                             text:  TextSpan(
                               style: TS.textStyle(
-                                  size: titleSize ?? Dim.s10,
+                                  size: titleSize ?? Dim.s12,
                                   color: titleColor ?? Colors.white,
                                   weight: fontWight ?? FontWeight.bold,
                                   isUnderLine: isTextUnderLine ?? false),
@@ -148,7 +148,7 @@ class AppButton extends StatelessWidget {
                                     style: TS.textStyle(
                                         weight: FontWeight.bold,
                                         color: AppColor.red,
-                                        size: Dim.s10, isUnderLine: false)),
+                                        size: Dim.s12, isUnderLine: false)),
                               ],
                             ),
                           ),
@@ -214,7 +214,7 @@ Widget dateWidget(BuildContext context,  DateTime? selectedDate, Function(DateTi
               data: ThemeData(
                   focusColor: AppColor.accentDark,
                   brightness: Brightness.light,
-                  backgroundColor: AppColor.white,
+                  cardColor: AppColor.white,
                   // buttonColor: AppColor.primary,
                   unselectedWidgetColor:
                   AppColor.green,
@@ -264,7 +264,7 @@ Widget timeWidget(BuildContext context,  TimeOfDay? selectedDate, Function(TimeO
               data: ThemeData(
                   focusColor: AppColor.accentDark,
                   brightness: Brightness.light,
-                  backgroundColor: AppColor.white,
+                  cardColor: AppColor.white,
                   // buttonColor: AppColor.primary,
                   unselectedWidgetColor:
                   AppColor.green,

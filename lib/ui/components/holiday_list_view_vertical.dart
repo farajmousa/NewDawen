@@ -1,12 +1,12 @@
-import 'package:sky_vacation/data/model/entity/holiday_data.dart';
-import 'package:sky_vacation/helper/app_color.dart';
-import 'package:sky_vacation/helper/app_decoration.dart';
-import 'package:sky_vacation/helper/dim.dart';
-import 'package:sky_vacation/helper/font_style.dart';
-import 'package:sky_vacation/helper/localize.dart';
-import 'package:sky_vacation/data/model/entity/id_name.dart';
-import 'package:sky_vacation/ui/screen/holidays.dart';
-import 'package:sky_vacation/ui/widgets/app_button.dart';
+import 'package:dawim/data/model/entity/holiday_data.dart';
+import 'package:dawim/helper/app_color.dart';
+import 'package:dawim/helper/app_decoration.dart';
+import 'package:dawim/helper/dim.dart';
+import 'package:dawim/helper/font_style.dart';
+import 'package:dawim/helper/localize.dart';
+import 'package:dawim/data/model/entity/id_name.dart';
+import 'package:dawim/ui/screen/holidays.dart';
+import 'package:dawim/ui/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import '../../helper/app_constant.dart';
@@ -48,7 +48,7 @@ class HolidayListViewVertical extends StatelessWidget {
     IdName? typeHoliday = typeHolidayList
         .firstWhereOrNull((element) => element.id == item.holdaytype);
     return ClipRRect(
-      borderRadius: BorderRadius.circular(Dim.w5),
+      borderRadius: BorderRadius.circular(Dim.h2),
       child: Stack(
         children: [
           Container(
@@ -59,7 +59,7 @@ class HolidayListViewVertical extends StatelessWidget {
                 Dim.w4),
             decoration: AppDecor.decoration(
                 bkgColor: AppColor.bkg,
-                borderRadius: Dim.w5,
+                borderRadius: Dim.h2,
                 borderColor: colorsRandom[index % (colorsRandom.length)]),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +90,7 @@ class HolidayListViewVertical extends StatelessWidget {
                     AppButton(
                       width: Dim.w26,
                       height: Dim.h4,
-                      titleSize: Dim.s7,
+                      titleSize: Dim.s11,
                       radius: Dim.w2,
                       marginHorizontal: Dim.w2,
                       marginVertical: 0,
@@ -103,7 +103,7 @@ class HolidayListViewVertical extends StatelessWidget {
                       width: Dim.w26,
                       height: Dim.h4,
                       bkgColor: AppColor.red,
-                      titleSize: Dim.s7,
+                      titleSize: Dim.s11,
                       radius: Dim.w2,
                       marginHorizontal: Dim.w2,
                       marginVertical: 0,

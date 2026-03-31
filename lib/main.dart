@@ -4,7 +4,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sizer/sizer.dart';
 import 'data/model/push_notification.dart';
@@ -47,6 +46,16 @@ final getIt = GetIt.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: AppColor.primary, // Make the status bar transparent.
+      statusBarIconBrightness: Brightness.dark, // Dark icons for a light background.
+      systemNavigationBarColor: Colors.white, // Optional: Set nav bar color.
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
+
+
   await di.init();
   appVersion = await au.getVersionName();
   await initFirebase();
@@ -81,17 +90,19 @@ class _SplashScreenState extends State<MyApp> {
     Locale deviceLocale = window.locale;// or html.window.locale
     String deviceCode = deviceLocale.languageCode;
 
-    FlutterStatusbarcolor.setStatusBarColor(AppColor.primary);
+    // FlutterStatusbarcolor.setStatusBarColor(AppColor.primary);
     currentLocale = (sm.getValue(UserConstant.AppLang).isNotEmpty)
         ? sm.getValue(UserConstant.AppLang)
         : (deviceCode == AppLocale.EN) ? AppLocale.EN: AppLocale.AR;
     appLog("#CurrentLocale: $currentLocale - $deviceCode");
 
-    return LayoutBuilder(
+    return Sizer(
+        maxMobileWidth: 550,
+        maxTabletWidth: 950,
+        builder: (context, orientation, sctype) { return LayoutBuilder(
       builder: (context, constraints) {
         return OrientationBuilder(
           builder: (context, orientation) {
-            SizerUtil.setScreenSize(constraints, orientation);
             return GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
@@ -126,7 +137,7 @@ class _SplashScreenState extends State<MyApp> {
         );
       },
     );
-  }
+  });}
 
 
 }
